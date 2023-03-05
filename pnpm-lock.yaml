@@ -4,13 +4,13 @@ specifiers:
   '@vuepress/client': 2.0.0-beta.61
   vue: ^3.2.47
   vuepress: 2.0.0-beta.61
-  vuepress-theme-zp: 1.0.1
+  vuepress-theme-zp: ^1.0.2
 
 devDependencies:
   '@vuepress/client': 2.0.0-beta.61
   vue: 3.2.47
   vuepress: 2.0.0-beta.61_zcwlgd45apez724duilctoxt4u
-  vuepress-theme-zp: 1.0.1_vuepress@2.0.0-beta.61
+  vuepress-theme-zp: 1.0.2_vuepress@2.0.0-beta.61
 
 packages:
 
@@ -2283,8 +2283,8 @@ packages:
       - supports-color
     dev: true
 
-  /vuepress-theme-zp/1.0.1_vuepress@2.0.0-beta.61:
-    resolution: {integrity: sha512-2aJegvCw4RxY0f34DbA/xrWmzMQOqtoNv/SsAuGm22+O0WSd6VP8vAJkkmzDegCUV0oAIClC5hMoLwbi+hG1Kw==}
+  /vuepress-theme-zp/1.0.2_vuepress@2.0.0-beta.61:
+    resolution: {integrity: sha512-O/MSk6iycXAG4mMZGRtl6Wa/TurvQfQq1HMUHuwv/5IaSJLFixHTBWSZOlf06D/7vyBLfkHu/2e+hnAmz87eZQ==}
     peerDependencies:
       sass-loader: ^13.2.0
     peerDependenciesMeta:

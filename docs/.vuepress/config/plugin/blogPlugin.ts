@@ -14,7 +14,7 @@ export const blogPlugin = {
     excerpt: data.excerpt || '',
   }),
   // 不过滤摘录
-  // excerptFilter: ({ frontmatter }) => frontmatter.excerpt,
+  excerptFilter: ({ frontmatter }) => frontmatter.excerpt,
   category: [
     {
       key: 'category',

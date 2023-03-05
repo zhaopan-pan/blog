@@ -1,6 +1,7 @@
 ---
 sidebar: false
 date: "2019-12-4"
+excerpt: true
 tag: 
  - javascript
 title: call、apply、bind

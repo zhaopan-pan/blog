@@ -1,6 +1,7 @@
 ---
 sidebar: false
 date: "2019-8-5"
+excerpt: true
 tag: 
  - react
 title: 父组件setState后传入props更新子组件视图

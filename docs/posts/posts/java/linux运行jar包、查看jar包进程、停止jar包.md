@@ -1,6 +1,7 @@
 ---
 sidebar: false
 date: "2019-9-4"
+excerpt: true
 tag: 
  - java
 title: linux运行jar包、查看jar包进程、停止jar包

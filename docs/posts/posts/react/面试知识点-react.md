@@ -1,6 +1,7 @@
 ---
 sidebar: false
 date: "2019-12-12"
+excerpt: true
 tag: 
  - react
 title: 面试知识点-react

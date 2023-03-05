@@ -1,6 +1,7 @@
 ---
 sidebar: false
 date: "2019-12-2"
+excerpt: true
 tag: 
  - javascript
 title: m3u8-HLS协议分析

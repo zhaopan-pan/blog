@@ -1,6 +1,7 @@
 ---
 sidebar: false
 date: "2020-2-20"
+excerpt: true
 tag: 
  - javascript
 title: javascript实现继承

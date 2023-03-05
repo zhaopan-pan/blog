@@ -1,6 +1,7 @@
 ---
 sidebar: false
 date: "2019-10-29"
+excerpt: true
 tag: 
  - vuepress
 category: 
