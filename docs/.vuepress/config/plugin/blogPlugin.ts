@@ -13,7 +13,8 @@ export const blogPlugin = {
     readme: frontmatter.readme,
     excerpt: data.excerpt || '',
   }),
-  excerptFilter: ({ frontmatter }) => frontmatter.excerpt,
+  // 不过滤摘录
+  // excerptFilter: ({ frontmatter }) => frontmatter.excerpt,
   category: [
     {
       key: 'category',
