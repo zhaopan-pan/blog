@@ -1,8 +1,4 @@
-$tag-color: #3eaf7c;
-$theme-color: #3eaf7c;
+@use './var.css';
 
+// 自定义tag颜色
 $tag-colors: #e6a23c, #f56c6c, #909399, #67c23a, #409eff;
-
-:root {
-  // --c-theme: red;
-}
