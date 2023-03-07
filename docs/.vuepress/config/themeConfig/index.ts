@@ -1,7 +1,7 @@
 import {ZpThemeOptions} from 'vuepress-theme-zp'
 import {sidebarZh} from '../sidebar/index.js'
 import {navbarZh} from '../navbar/index.js'
-import {blogPlugin, commentPlugin} from '../plugin/index.js'
+import {blogPlugin, commentPlugin, docsearchPlugin} from '../plugin/index.js'
 import cssStr from '../../styles/cssVar.js'
 
 export const themeConfig = (options?: ZpThemeOptions) => ({
@@ -27,6 +27,7 @@ export const themeConfig = (options?: ZpThemeOptions) => ({
 	themePlugins: {
 		blog: blogPlugin,
 		comment: commentPlugin,
+		search: docsearchPlugin,
 	},
 	cssVariableStr: cssStr,
 })
