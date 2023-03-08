@@ -1,11 +1,14 @@
 import {defineUserConfig} from 'vuepress'
 import {themeConfig} from './config/index.js'
 import ZpTheme from 'vuepress-theme-zp'
+import path from 'path'
 
 export default defineUserConfig({
 	lang: 'zh-CN',
 	title: '幻无',
-	description: 'my blog',
+	base: '/',
+	description: "huanwu's blog",
+	templateBuild: path.resolve(__dirname, './templates/build.html'),
 	head: [
 		[
 			'link',
