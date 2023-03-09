@@ -1,7 +1,7 @@
 import {defineUserConfig} from 'vuepress'
 import {themeConfig} from './config/index.js'
 import ZpTheme from 'vuepress-theme-zp'
-import path from 'path'
+import {sitemapPlugin} from 'vuepress-plugin-sitemap2'
 
 export default defineUserConfig({
 	lang: 'zh-CN',
@@ -24,4 +24,5 @@ export default defineUserConfig({
 			level: [2, 3],
 		},
 	},
+	plugins: [sitemapPlugin({hostname: 'https://zhaopanpan.com/'})],
 })
