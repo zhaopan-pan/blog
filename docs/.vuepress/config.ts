@@ -8,7 +8,6 @@ export default defineUserConfig({
 	title: '幻无',
 	base: '/',
 	description: "huanwu's blog",
-	templateBuild: path.resolve(__dirname, './templates/build.html'),
 	head: [
 		[
 			'link',

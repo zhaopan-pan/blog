@@ -3,12 +3,13 @@ import {sidebarZh} from '../sidebar/index.js'
 import {navbarZh} from '../navbar/index.js'
 import {blogPlugin, commentPlugin, docsearchPlugin} from '../plugin/index.js'
 import cssStr from '../../styles/cssVar.js'
+import path from 'path'
 
 export const themeConfig = (options?: ZpThemeOptions) => ({
 	...options,
 	blog: {
 		name: '幻无',
-		description: '',
+		description: "huanwu's blog",
 		avatar: 'https://p2.music.126.net/s-RX4DnzNQdcOM0pRNrVxQ==/109951166556851964.jpg?param=177y177',
 		homeTopBg: '',
 		// 'https://images.pexels.com/photos/1764702/pexels-photo-1764702.jpeg?auto=compress&cs=tinysrgb&w=1600',
@@ -30,4 +31,5 @@ export const themeConfig = (options?: ZpThemeOptions) => ({
 		search: docsearchPlugin,
 	},
 	cssVariableStr: cssStr,
+	templateBuild: path.resolve(__dirname, '../../templates/build.html'),
 })
