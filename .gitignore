@@ -1,11 +1,17 @@
 #build
 .DS_Store
+
+/.vscode
+/node_modules
+
 /docs/.vuepress/.temp/
 /docs/.vuepress/.cache/
 /docs/.vuepress/dist/
 /docs/.vuepress/config.js
-/node_modules
-/.vscode
+/docs/.vuepress/templates/.temp/
+
+
+
 /deploy.sh
 
 
