@@ -32,4 +32,8 @@ export const themeConfig = (options?: ZpThemeOptions) => ({
 	},
 	cssVariableStr: cssStr,
 	templateBuild: path.resolve(__dirname, '../../templates/build.html'),
+	footer: {
+		nameLink: '/about',
+		startYear: 2019,
+	},
 })
