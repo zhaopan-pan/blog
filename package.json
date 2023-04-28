@@ -17,6 +17,6 @@
 		"vue": "^3.2.47",
 		"vuepress": "2.0.0-beta.61",
 		"vuepress-plugin-sitemap2": "2.0.0-beta.190",
-		"vuepress-theme-zp": "^1.0.13"
+		"vuepress-theme-zp": "^1.0.14"
 	}
 }
