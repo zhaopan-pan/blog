@@ -10,7 +10,7 @@ title: vuepress项目部署到github
 ---
 
 ::: tip GitHub Pages
-vuerepss项目部署到github后的两种访问方式
+vuepress项目部署到github后的两种访问方式
 :::
  <!-- more -->
 ### 前言
