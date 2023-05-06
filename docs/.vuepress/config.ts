@@ -13,9 +13,19 @@ export default defineUserConfig({
 			'link',
 			{
 				rel: 'icon',
-				href: 'https://p2.music.126.net/s-RX4DnzNQdcOM0pRNrVxQ==/109951166556851964.jpg?param=177y177',
+				href: '/icons/favicon-32x32.png',
 			},
 		],
+		[
+			'link',
+			{
+				rel: 'apple-touch-icon',
+				href: '/icons/apple-touch-icon.png',
+			},
+		],
+		['link', {rel: 'manifest', href: '/manifest.webmanifest'}],
+		['meta', {name: 'msapplication-TileColor', content: '#00aba9'}],
+		['meta', {name: 'theme-color', content: '#3eaf7c'}],
 	],
 	theme: ZpTheme(themeConfig()),
 	markdown: {
