@@ -31,7 +31,7 @@ export default defineUserConfig({
 	markdown: {
 		headers: {
 			// 侧边栏<h1+>深度
-			level: [2, 3],
+			level: [2, 3, 4],
 		},
 	},
 	plugins: [sitemapPlugin({hostname: 'https://zhaopanpan.com/'})],
