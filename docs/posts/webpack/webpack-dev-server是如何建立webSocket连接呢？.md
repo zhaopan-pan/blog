@@ -7,6 +7,8 @@ category:
  - frontEnd 
  - 源码
 title: webpack-dev-server建立webSocket连接时发生了什么？
+cover: https://picsum.photos/id/17/740/300
+description: 上一篇主要是为了解决热刷新的问题，解决的同时，又引申出了另一个问题，那就是webpack-dev-server是如何和浏览器建立webSocket连接呢？建立连接的时候发生了什么？建立连接之前做了哪些事情呢？
 ---
 
 [pre]:./%E7%BB%99%E5%85%AC%E5%8F%B8%E9%A1%B9%E7%9B%AE%E5%8A%A0%E4%B8%8A%E7%83%AD%E6%9B%B4%E6%96%B0%E5%8A%9F%E8%83%BD.md
@@ -14,11 +16,12 @@ title: webpack-dev-server建立webSocket连接时发生了什么？
 
 ## 背景
 
-[上一篇][pre]主要是为了解决热更新的问题，通过解决问题，又引申出了另一个问题，就是webpack-dev-server是如何建立webSocket连接呢？
+[上一篇][pre]主要是为了解决热刷新的问题，解决的同时，又引申出了另一个问题，就是webpack-dev-server是如何建立webSocket连接呢？
+
 
 ## 创建webSocket服务端以及和dev服务的关系
 
-webSocket的连接也是需要一个服务端，这个在wds创建dev服务成功之后创建的，这里为啥要放在开发服务创建完成后呢？因为后面要通过dev服务来
+其实webSocket的连接也是需要一个单独的服务端，这个在wds创建dev服务成功之后创建的，这里为啥要放在开发服务创建完成后呢？因为后面要通过dev服务来创建来判断是否是ws的`升级请求`
 
 > node_modules/webpack-dev-server/lib/Server.js 
 
@@ -72,7 +75,7 @@ module.exports = class WebsocketServer extends BaseServer {
 
 ## socket地址是如何生成的呢？
 
-从配置开始看，有个很重要的点，在webpack的配置参数里面 `entry` , 对于启用热更新是很重要的，[官方文档的指南](https://webpack.docschina.org/guides/hot-module-replacement/#enabling-hmr)里面就有，其实[上一篇][pre]的端口错误也就是影响到这里的配置了，正常情况应该是 `webpack-dev-server/client?http://localhost:3001` ， 我们会在输出文件里面可以看到它的踪影，后面会说到
+从配置开始看，有个很重要的点，在webpack的配置参数里面 `entry` , 对于启用热刷新是很重要的，[官方文档的指南](https://webpack.docschina.org/guides/hot-module-replacement/#enabling-hmr)里面就有，其实[上一篇][pre]的端口错误也就是影响到这里的配置了，正常情况应该是 `webpack-dev-server/client?http://localhost:3001` ， 我们会在输出文件里面可以看到它的踪影，后面会说到
 
 ![start](./img/fixHotUpdate-entry.png "图片地址")
 
