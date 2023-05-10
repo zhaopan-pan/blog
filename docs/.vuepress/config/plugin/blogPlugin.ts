@@ -9,8 +9,10 @@ export const blogPlugin = {
     author: frontmatter.author || '',
     date: frontmatter.date || null,
     category: frontmatter.category || [],
+    cover: frontmatter.cover || '',
     tag: frontmatter.tag || [],
     readme: frontmatter.readme,
+    description: frontmatter.description || '',
     excerpt: data.excerpt || '',
   }),
   // 不过滤摘录

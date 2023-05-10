@@ -22,7 +22,16 @@ export const themeConfig = (options?: ZpThemeOptions) => ({
 			// sidebar
 			sidebar: sidebarZh,
 			// page meta
-			editLinkText: 'Edit this page on GitHub',
+			editLinkText: '编辑此页面',
+			lastUpdatedText: '最近更新时间',
+			// 不展示提交者信息
+			contributors: false,
+			// 展示可编辑跳转
+			editLink: true,
+			// 仓库信息
+			docsRepo: 'https://github.com/zhaopan-pan/blog',
+			docsBranch: 'master',
+			docsDir: 'docs',
 		},
 	},
 	themePlugins: {
@@ -32,4 +41,8 @@ export const themeConfig = (options?: ZpThemeOptions) => ({
 	},
 	cssVariableStr: cssStr,
 	templateBuild: path.resolve(__dirname, '../../templates/build.html'),
+	footer: {
+		nameLink: '/about',
+		startYear: 2019,
+	},
 })
