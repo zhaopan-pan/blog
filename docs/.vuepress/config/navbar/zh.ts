@@ -20,6 +20,10 @@ export const navbarZh: NavbarConfig = [
 		link: '/tag/',
 	},
 	{
+		text: 'talks',
+		link: '/talks',
+	},
+	{
 		text: '关于',
 		link: '/about',
 	},
@@ -27,8 +31,4 @@ export const navbarZh: NavbarConfig = [
 		text: '主题源码',
 		link: 'https://github.com/zhaopan-pan/vuepress-theme-zp',
 	},
-	// {
-	//   text: 'series',
-	//   link: '/posts/series-demo',
-	// },
 ]
