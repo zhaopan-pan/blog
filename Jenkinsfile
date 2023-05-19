@@ -6,8 +6,6 @@ pipeline{
     stages{
         stage("pull"){
             steps {
-                sh 'sudo rm -rf public'
-                sh 'sudo rm -rf logs'
                 git branch: 'master', credentialsId: '7130d54c-1d2f-4510-bc2d-3f1cf4a33fbc', url: 'git@github.com:zhaopan-pan/blog.git'
             }
         }
