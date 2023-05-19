@@ -1,5 +1,10 @@
 pipeline{
-    agent any
+    agent {
+        docker {
+            image 'node:lts-bullseye-slim' 
+            args '-p 3000:3000' 
+        }
+    }
     tools {
         nodejs 'NodeJS_16.20.0'
     }
@@ -11,14 +16,16 @@ pipeline{
         }
         stage("build"){
             steps {
-                sh 'npm install pnpm - g'
+                sh 'ls -a'
+                sh 'corepack enable'
+                sh 'corepack prepare pnpm@latest-8 --activate'
                 sh 'pnpm install'
                 sh 'npm run build'
                 sh 'sudo rm -rf node_modules'
                 sh 'sudo mv dist /home/webroot/blog'
             }
         }
-        stage(" move"){
+        stage("move"){
             steps {
                 sh 'sudo mv ./dist/* /home/webroot/blog/'
             }
