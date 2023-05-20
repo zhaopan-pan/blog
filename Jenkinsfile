@@ -15,7 +15,7 @@ pipeline{
                 sh 'corepack enable'
                 sh 'corepack prepare pnpm@latest-8 --activate'
                 sh 'pnpm install'
-                timeout(time: 10, unit: 'MINUTES') {
+                timeout(time: 15, unit: 'MINUTES') {
                     sh 'npm run build'
                 }
             }
