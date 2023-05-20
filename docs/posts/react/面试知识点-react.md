@@ -382,7 +382,7 @@ DOM是从根元素开始的元素层次结构。例如，看看下面的HTML。
 
   
 
-![](https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcbt1ejOfciax0NbhdHvWrqjDltYLawUDZo2X6U8IiaKqLD90e7ZZR4HDaIYQBXzyQbcukmib2YhjTghA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1 "clipboard.png")
+![](https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcbt1ejOfciax0NbhdHvWrqjDltYLawUDZo2X6U8IiaKqLD90e7ZZR4HDaIYQBXzyQbcukmib2YhjTghA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
 
   
 
@@ -398,15 +398,11 @@ React将整个DOM副本保存为虚拟DOM
 
   
 
-![](data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg== "clipboard.png")
-
-  
-
 每当有更新时，它都会维护两个虚拟DOM，以比较之前的状态和当前状态，并确定哪些对象已被更改。 例如，段落文本更改为更改。
 
   
 
-![](https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcbt1ejOfciax0NbhdHvWrqjDSxibJDDjkibBkTcJhzDC26rwzytElfDZ5n262DZjl0iaGygxAVHXGJ4YA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1 "clipboard.png")
+![](https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcbt1ejOfciax0NbhdHvWrqjDSxibJDDjkibBkTcJhzDC26rwzytElfDZ5n262DZjl0iaGygxAVHXGJ4YA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
 
   
 
@@ -414,17 +410,12 @@ React将整个DOM副本保存为虚拟DOM
 
   
 
-![](https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcbt1ejOfciax0NbhdHvWrqjDHOPHjxD4z1eRJy37HRko8kTxibpnla8xflsfuOQiar9ryVxK2ibqwKo0w/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1 "clipboard.png")
+![](https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcbt1ejOfciax0NbhdHvWrqjDHOPHjxD4z1eRJy37HRko8kTxibpnla8xflsfuOQiar9ryVxK2ibqwKo0w/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
 
   
 
 一旦真正的DOM更新，它也会更新UI
 
-  
-
-![](data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg== "clipboard.png")
-
-  
 
 ## 什么是 JSX
 
@@ -866,7 +857,7 @@ Redux 是 React的一个状态管理库，它基于flux。 Redux简化了React�
 
   
 
-![](https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcbt1ejOfciax0NbhdHvWrqjDAgPNg8u3D4lUjQaKoeibBL7Hbkv7dIa426nGMYaibTxictoLyMowbiap9g/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1 "clipboard.png")
+![](https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcbt1ejOfciax0NbhdHvWrqjDAgPNg8u3D4lUjQaKoeibBL7Hbkv7dIa426nGMYaibTxictoLyMowbiap9g/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
 
   
 
@@ -876,7 +867,7 @@ Redux 是 React的一个状态管理库，它基于flux。 Redux简化了React�
 
   
 
-![](https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcbt1ejOfciax0NbhdHvWrqjDVl6GpRibibjibFpD2AYCDJefYbo0dTpM9RSN4yMguPVfaiatTXWZEibvmMw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1 "clipboard.png")
+![](https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcbt1ejOfciax0NbhdHvWrqjDVl6GpRibibjibFpD2AYCDJefYbo0dTpM9RSN4yMguPVfaiatTXWZEibvmMw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
 
   
 
@@ -1109,7 +1100,7 @@ return (
 
   
 
-![](https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcbt1ejOfciax0NbhdHvWrqjDn7twzH4so3EySK23330OWqw9ewYOrRPmllBbqcKUs6zovybWED2mXw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1 "clipboard.png")
+![](https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcbt1ejOfciax0NbhdHvWrqjDn7twzH4so3EySK23330OWqw9ewYOrRPmllBbqcKUs6zovybWED2mXw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
 
   
 
@@ -1145,12 +1136,6 @@ this.el,
   }
 }
 ```
-
-  
-
-![](data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg== "clipboard.png")
-
-  
 
 ## 什么是上下文
 
@@ -1235,7 +1220,7 @@ Hook 不会影响你对 React 概念的理解。 恰恰相反，Hook 为已知�
 
   
 
-![](https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcbt1ejOfciax0NbhdHvWrqjDHMTDsdwI8wWSRSA19a3aOplMlIniaV6yARIiawx56aFwmAjHIDJtqeLQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1 "clipboard.png")
+![](https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcbt1ejOfciax0NbhdHvWrqjDHMTDsdwI8wWSRSA19a3aOplMlIniaV6yARIiawx56aFwmAjHIDJtqeLQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
 
   
 
@@ -1247,7 +1232,7 @@ Hook 不会影响你对 React 概念的理解。 恰恰相反，Hook 为已知�
 
   
 
-![](https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcbt1ejOfciax0NbhdHvWrqjDb6OiaTy2iagEkjpCrOk1diaOogCBRF62QOB8NbSrdTua7obeKoq1JrkSg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1 "clipboard.png")
+![](https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcbt1ejOfciax0NbhdHvWrqjDb6OiaTy2iagEkjpCrOk1diaOogCBRF62QOB8NbSrdTua7obeKoq1JrkSg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
 
   
 
