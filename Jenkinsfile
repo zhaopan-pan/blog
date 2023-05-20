@@ -15,9 +15,9 @@ pipeline{
                 sh 'corepack enable'
                 sh 'corepack prepare pnpm@latest-8 --activate'
                 sh 'pnpm install'
-                sh 'npm run build'
-                sh 'sudo rm -rf node_modules'
-                sh 'sudo mv dist /home/webroot/blog'
+                timeout(time: 10, unit: 'MINUTES') {
+                    sh 'npm run build'
+                }
             }
         }
         stage("move"){
