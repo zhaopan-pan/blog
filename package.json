@@ -6,7 +6,7 @@
 	"scripts": {
 		"dev": "DEBUG=vuepress* vuepress dev docs",
 		"build": "vuepress build docs",
-		"deploy": "sh ./script/deploy.sh",
+		"deploy": "npm run upd-theme && sh ./script/deploy.sh",
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"upd-theme": "pnpm i -D vuepress-theme-zp@latest"
 	},
@@ -14,10 +14,11 @@
 	"author": "zhaopan",
 	"license": "ISC",
 	"devDependencies": {
+		"@types/node": "^20.2.4",
 		"@vuepress/client": "2.0.0-beta.62",
 		"vue": "^3.3.1",
 		"vuepress": "2.0.0-beta.62",
 		"vuepress-plugin-sitemap2": "2.0.0-beta.211",
-		"vuepress-theme-zp": "^1.0.31"
+		"vuepress-theme-zp": "^1.0.32"
 	}
 }
