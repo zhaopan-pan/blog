@@ -1,16 +1,16 @@
 {
-  "name": "幻无",
-  "short_name": "幻无",
-  "description": "学习生活记录",
-  "start_url": "/",
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff",
-  "display": "standalone",
-  "icons": [
-    {
-      "src": "/icons/android-chrome-144x144.png",
-      "sizes": "144x144",
-      "type": "image/png"
-    }
-  ]
+	"name": "幻无",
+	"short_name": "幻无",
+	"description": "学习生活记录",
+	"start_url": "/",
+	"theme_color": "#ffffff",
+	"background_color": "#ffffff",
+	"display": "standalone",
+	"icons": [
+		{
+			"src": "/icons/android-chrome-144x144.png?v=1.0",
+			"sizes": "144x144",
+			"type": "image/png"
+		}
+	]
 }
