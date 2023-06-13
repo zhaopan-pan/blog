@@ -10,7 +10,7 @@ export const themeConfig = (options?: ZpThemeOptions) => ({
 	blog: {
 		name: '幻无',
 		description: "huanwu's blog",
-		avatar: 'https://zhaopanpan.com/logo.png',
+		avatar: 'https://zhaopanpan.com/image/logo.png',
 		homeTopBg: '',
 		// 'https://images.pexels.com/photos/1764702/pexels-photo-1764702.jpeg?auto=compress&cs=tinysrgb&w=1600',
 		// 'https://images.pexels.com/photos/3695297/pexels-photo-3695297.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
