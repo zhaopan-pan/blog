@@ -8,7 +8,7 @@
 	"display": "standalone",
 	"icons": [
 		{
-			"src": "/icons/android-chrome-144x144.png?v=1.0",
+			"src": "/icons/android-chrome-144x144.png",
 			"sizes": "144x144",
 			"type": "image/png"
 		}
