@@ -50,18 +50,8 @@ export const themeConfig = (options?: ZpThemeOptions) => ({
 		blog: blogPlugin,
 		comment: commentPlugin,
 		search: docsearchPlugin,
-		pwaOption: {
-			pwa: {
-				skipWaiting: false,
-			},
-			pwaPopup: {
-				locales: {
-					'/': {
-						message: '发现新内容可用',
-						buttonText: '刷新',
-					},
-				},
-			},
+		pwa: {
+			skipWaiting: true,
 		},
 	},
 	cssVariableStr: cssStr,
