@@ -9,8 +9,8 @@ export const themeConfig = (options?: ZpThemeOptions) => ({
 	...options,
 	blog: {
 		name: '幻无',
-		description: "huanwu's blog",
-		avatar: 'https://zhaopanpan.com/image/logo.png',
+		description: '幻无的blog',
+		avatar: 'https://zhaopanpan.com/logo.png',
 		homeTopBg: '',
 		// 'https://images.pexels.com/photos/1764702/pexels-photo-1764702.jpeg?auto=compress&cs=tinysrgb&w=1600',
 		// 'https://images.pexels.com/photos/3695297/pexels-photo-3695297.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
@@ -53,12 +53,14 @@ export const themeConfig = (options?: ZpThemeOptions) => ({
 		pwaOption: {
 			pwa: {
 				skipWaiting: false,
+				// app.js文件较大，提高缓存限制
+				maximumFileSizeToCacheInBytes: 9437184,
 			},
 			pwaPopup: {
 				locales: {
 					'/': {
-						message: '发现新内容可用',
-						buttonText: '刷新',
+						message: '发现新内容',
+						buttonText: '更新',
 					},
 				},
 			},

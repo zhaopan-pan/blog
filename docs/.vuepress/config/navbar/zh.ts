@@ -20,7 +20,7 @@ export const navbarZh: NavbarConfig = [
 		link: '/tag/',
 	},
 	{
-		text: 'talks',
+		text: '交流',
 		link: '/talks',
 	},
 	{

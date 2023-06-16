@@ -1,8 +1,8 @@
 {
 	"name": "幻无",
 	"short_name": "幻无",
-	"description": "学习生活记录",
-	"start_url": "/index.html",
+	"description": "blog",
+	"start_url": "/",
 	"theme_color": "#ffffff",
 	"background_color": "#ffffff",
 	"display": "standalone",
