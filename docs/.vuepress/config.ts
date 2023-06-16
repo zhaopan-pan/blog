@@ -1,4 +1,4 @@
-import {defineUserConfig} from 'vuepress'
+import {defineUserConfig, viteBundler} from 'vuepress'
 import {themeConfig} from './config/index.js'
 import ZpTheme from 'vuepress-theme-zp'
 import {sitemapPlugin} from 'vuepress-plugin-sitemap2'
@@ -8,7 +8,7 @@ export default defineUserConfig({
 	lang: 'zh-CN',
 	title: '幻无',
 	base: '/',
-	description: "huanwu's blog",
+	description: '幻无的blog',
 	head,
 	theme: ZpTheme(themeConfig()),
 	markdown: {

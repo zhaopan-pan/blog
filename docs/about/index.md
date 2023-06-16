@@ -1,6 +1,6 @@
 ---
 lang: zh-CN
-title: about
+title: 关于
 sidebar: false
 description: 
 date: 2022-11-11
