@@ -21,11 +21,11 @@ export const navbarZh: NavbarConfig = [
 	},
 	{
 		text: '交流',
-		link: '/talks',
+		link: '/talks.html',
 	},
 	{
 		text: '关于',
-		link: '/about',
+		link: '/about.html',
 	},
 	{
 		text: '主题源码',
