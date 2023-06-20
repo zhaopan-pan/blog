@@ -71,5 +71,9 @@ export const themeConfig = (options?: ZpThemeOptions) => ({
 	footer: {
 		nameLink: '/about.html',
 		startYear: 2019,
+		beian: {
+			text: '豫ICP备2021005196号-1',
+			link: 'https://beian.miit.gov.cn',
+		},
 	},
 })
