@@ -20,7 +20,7 @@ title:
 
 ## 背景
 
-如你目前所见，就是最近在重写的[博客主题](https://github.com/zhaopan-pan/vuepress-theme-zp)，基于[vuepress2](https://v2.vuepress.vuejs.org/)的默认主题([theme-default](https://github.com/vuepress/vuepress-next/tree/main/ecosystem/theme-default))，原主题是知识文档库的风格，不满足[blog](https:zhaopanpan.com)的基础功能，所以就开始了魔改，在魔改的过程中少不了要研究源码，发现了一些`问题`的代码
+如你目前所见，就是最近在重写的[博客主题](https://github.com/zhaopan-pan/vuepress-theme-zp)，基于[vuepress2](https://v2.vuepress.vuejs.org/)的默认主题([theme-default](https://github.com/vuepress/vuepress-next/tree/main/ecosystem/theme-default))，原主题是知识文档库的风格，不满足[blog](https://zhaopanpan.com)的基础功能，所以就开始了魔改，魔改的过程中少不了要研究源码，发现了一些`问题`的代码
 
 ## 问题 - 1
 ### 样式变量不能在组件中共享
@@ -130,7 +130,11 @@ import cssVars from '../styles/_variables.module.scss'
 
 ### 解决方案
 看到报错信息`Compiling with webpack`，忽然明白了，原来是`webpack`编译时的问题，本地启动时每次都是`pnpm run docs:dev`，`vuepress`默认启动的工具是`vite`，如果要用`webpack`，要用`pnpm run docs:dev-webpack`，所以没发现这个问题，我大意了啊。
-提取有用信息就是这句`export 'default' (imported as 'cssVars') was not found in '../styles/_variables.module.scss' (module has no exports)`，字面意思就是这个`_variables.module.scss`文件没有module导出，显然是webpack没有针对`cssModules`的文件做解析，webpack中`cssModules`的开关是`css-loader`控制的,这个就要看`css-loader`的配置了，webpack样式相关的配置在源码中的[handleModuleStyles](https://github.com/vuepress/vuepress-next/blob/main/packages/bundler-webpack/src/config/handleModuleStyles.ts)文件
+提取有用信息就是这句
+```js
+`export 'default' (imported as 'cssVars') was not found in '../styles/_variables.module.scss' (module has no exports)`
+```
+字面意思就是这个`_variables.module.scss`文件没有module导出，显然是webpack没有针对`cssModules`的文件做解析，webpack中`cssModules`的开关是`css-loader`控制的,这个就要看`css-loader`的配置了，webpack样式相关的配置在源码中的[handleModuleStyles](https://github.com/vuepress/vuepress-next/blob/main/packages/bundler-webpack/src/config/handleModuleStyles.ts)文件
 ```ts
 // 101 line
 const handleStyle = <T extends LoaderOptions = LoaderOptions>({
