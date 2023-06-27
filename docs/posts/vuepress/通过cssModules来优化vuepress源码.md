@@ -130,7 +130,11 @@ import cssVars from '../styles/_variables.module.scss'
 
 ### 解决方案
 看到报错信息`Compiling with webpack`，忽然明白了，原来是`webpack`编译时的问题，本地启动时每次都是`pnpm run docs:dev`，`vuepress`默认启动的工具是`vite`，如果要用`webpack`，要用`pnpm run docs:dev-webpack`，所以没发现这个问题，我大意了啊。
-提取有用信息就是这句`export 'default' (imported as 'cssVars') was not found in '../styles/_variables.module.scss' (module has no exports)`，字面意思就是这个`_variables.module.scss`文件没有module导出，显然是webpack没有针对`cssModules`的文件做解析，webpack中`cssModules`的开关是`css-loader`控制的,这个就要看`css-loader`的配置了，webpack样式相关的配置在源码中的[handleModuleStyles](https://github.com/vuepress/vuepress-next/blob/main/packages/bundler-webpack/src/config/handleModuleStyles.ts)文件
+提取有用信息就是这句
+```js
+`export 'default' (imported as 'cssVars') was not found in '../styles/_variables.module.scss' (module has no exports)`
+```
+字面意思就是这个`_variables.module.scss`文件没有module导出，显然是webpack没有针对`cssModules`的文件做解析，webpack中`cssModules`的开关是`css-loader`控制的,这个就要看`css-loader`的配置了，webpack样式相关的配置在源码中的[handleModuleStyles](https://github.com/vuepress/vuepress-next/blob/main/packages/bundler-webpack/src/config/handleModuleStyles.ts)文件
 ```ts
 // 101 line
 const handleStyle = <T extends LoaderOptions = LoaderOptions>({
