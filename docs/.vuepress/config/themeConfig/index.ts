@@ -44,6 +44,18 @@ export const themeConfig = (options?: ZpThemeOptions) => ({
 			docsRepo: 'https://github.com/zhaopan-pan/blog',
 			docsBranch: 'master',
 			docsDir: 'docs',
+			// custom containers
+			tip: '提示',
+			warning: '注意',
+			danger: '警告',
+			// 404 page
+			notFound: [
+				'这里啥都没有',
+				'我们怎么到这来了？',
+				'这是一个 404 页面',
+				'看起来我们进入了错误的链接',
+			],
+			backToHome: '返回首页',
 		},
 	},
 	themePlugins: {
