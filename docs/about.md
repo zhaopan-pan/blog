@@ -15,7 +15,7 @@ toc: false
 
 ⛹🏻打篮球多一些，看nba(威少、泡椒)；
 
-偶尔玩stream-《地铁-离去》
+偶尔玩steam-[地铁:离去](https://store.steampowered.com/app/412020/Metro_Exodus/)
 
 ### ⏰ 最近
 最近在研究[vuepress](https://v2.vuepress.vuejs.org/)，捣鼓了一套[主题](https://github.com/zhaopan-pan/vuepress-theme-zp)，也提了一些pr，给开源做做贡献啦🤦‍♂️

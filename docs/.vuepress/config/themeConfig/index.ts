@@ -65,8 +65,6 @@ export const themeConfig = (options?: ZpThemeOptions) => ({
 		pwaOption: {
 			pwa: {
 				skipWaiting: false,
-				// app.js文件较大，提高缓存限制
-				maximumFileSizeToCacheInBytes: 9437184,
 			},
 			pwaPopup: {
 				locales: {
