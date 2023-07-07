@@ -55,7 +55,7 @@ export const themeConfig = (options?: ZpThemeOptions) => ({
 				'这是一个 404 页面',
 				'看起来我们进入了错误的链接',
 			],
-			backToHome: '返回首页',
+			backToHome: '去首页看看',
 		},
 	},
 	themePlugins: {
