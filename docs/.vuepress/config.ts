@@ -5,7 +5,7 @@ import {sitemapPlugin} from 'vuepress-plugin-sitemap2'
 import {head} from './config/head/index.js'
 
 export default defineUserConfig({
-	lang: 'zh-CN',
+	lang: ' ',
 	title: '幻无',
 	base: '/',
 	description: '幻无的blog',

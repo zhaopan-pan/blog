@@ -1,7 +1,7 @@
 export const docsearchPlugin = {
-	appId: '5YL3VOA52Y',
-	apiKey: '73fe0c0713b16c2ca7623fb0f1801a35',
-	indexName: 'zhaopanpan',
+	appId: 'W42NAAMCOD',
+	apiKey: 'db5ed02a4087598ba61461337c410b35',
+	indexName: 'huanwu',
 	locales: {
 		'/': {
 			placeholder: '搜索',
