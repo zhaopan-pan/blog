@@ -1,5 +1,6 @@
 name: Algolia DocSearch
 
+# master分支触发
 on:
     push:
         branches:
