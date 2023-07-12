@@ -218,4 +218,4 @@ declare module '*.module.scss?module'{
 1. js文件操作样式文件变量的问题，通过开启cssModules的方式来解决这个问题，打包工具vite、webpack也都是支持的
 2. webpack的编译问题，通过vuepress的源码了解到，是因为webpack的config文件中，给使用cssModules功能的配置添加了条件，加上指定参数就可以了
 
-解决完上述问题后，结合源码对css变量的使用做了进一步优化，封装成了`composables`方法，提高了代码的简洁、通用性，目前已经被`merged`，有兴趣的同学可以平移([不是好惹的的](https://www.thepaper.cn/newsDetail_forward_22941084))到这个[pr](https://github.com/vuepress/vuepress-next/pull/1322)。
+解决完上述问题后，结合源码对css变量的使用做了进一步优化，封装成了`composables`方法，提高了代码的简洁、通用性，目前已经被`merged`，有兴趣的同学可以[平移](https://www.thepaper.cn/newsDetail_forward_22941084)到这个[pr](https://github.com/vuepress/vuepress-next/pull/1322)。

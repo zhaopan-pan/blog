@@ -5,15 +5,16 @@ excerpt: true
 tag: 
  - vuepress
 category: 
- - backEnd
-title:
+ - frontEnd
+title: 如何手动跑algolia的爬虫来打造属于自己的站点搜索呢🤔
+cover: 
 ---
 
 <div class='custom-article-excerpt'>
 <img src='https://dashboard.algolia.com/assets/auth/algolia-logo-light-2fc6ad36a48bf09ddd3136a97e71b523494ce964c348c150a628d29e94f15400.svg' height='30' style="margin: 20px 20px 20px 0;"/>
-<h1 class='custom-article-name'>
-如何跑algolia的爬虫来打造属于自己的站点搜索呢🤔
-</h1>
+<div class='cover-info-text'>
+作为'api工程师'，平时少不了要去vue或react官方文档来搜索api，在享受精确搜索的同时，有想过该如何集成到自己的项目里面吗？这篇文章主要分享自己使用时的`坎坷`历程...
+</div>
 </div>
 
  <!-- more -->
@@ -23,8 +24,9 @@ title:
 > Algolia for JavaScript (4.8.5); Browser (lite); docsearch (3.5.0); docsearch-react (3.5.0); docsearch.js (3.5.0)
 
 
-## 前言
-说起[algolia](https://www.algolia.com/doc),可能大家会有点陌生，但如果你看过[vue](https://cn.vuejs.org/)或[react](https://react.dev)的文档，那你大概率用过他们的搜索，以下图`vue`搜索为例:
+## Algolia
+
+说起[Algolia](https://www.algolia.com/doc),可能大家会有点陌生，但如果你看过[vue](https://cn.vuejs.org/)或[react](https://react.dev)的文档，那你大概率用过他们的搜索，以下图`vue`搜索为例:
 
 <img src='https://s1.ax1x.com/2023/07/11/pCWEjEV.png' width='500'/>
 
@@ -42,12 +44,12 @@ title:
 <!-- https://docsearch.algolia.com/apply/ -->
 已经有这么多大佬级框架都在用，而且`Algolia`提供一站式的服务，不仅帮提供app托管管理后台，还有爬虫管理后台方便配置。既然功能强大有好用，那咱也不能落后啊，赶紧安排上，于是按照[vuepress](https://v2.vuepress.vuejs.org/zh/reference/plugin/docsearch.html)的教程就[申请](https://docsearch.algolia.com/apply/)用上了，按理说一个幸福美满的故事就此开始了
 
-### 事故
-一直幸福美满下去到此也就结束了，没啥可总结的，但是，在一次配置未生效后，竟然手残的删除了账户，想着大不了重新申请一个就完了，可谁知道重新申请直接提示`已经把凭证发给我了`，但是那是老的啊，尝试用另一个邮箱申请也是同样提示，重新使用老邮箱注册账号竟然提示说`已经被拉进黑名单了！`shit`!
+### 翻车
+一直幸福美满下去到此也就结束了，没啥可总结的，但是，在一次配置未生效后(可能是缓存原因)，竟然手残的删除了账户，想着大不了重新申请一个就完了，可谁知道重新申请直接提示`已经把凭证发给我了`，但是那是老的啊，尝试用另一个邮箱申请也是同样提示，重新使用老邮箱注册账号竟然提示说`已经被拉进黑名单了！` **shit!**
 
 > 申请：你需要 提交你的网站 URL 来加入 DocSearch 项目。当你的索引成功创建后， DocSearch 团队会将 apiKey 和 indexName 发送到你的邮箱。接下来，你就可以配置该插件，在 VuePress 中启用 DocSearch 了。
 > 
-> 注册： 注册algolia 提供的[应用管理后台](https://dashboard.algolia.com/apps)，用来做搜索应用的定制化配置
+> 注册： 注册algolia 提供的[应用管理后台](https://dashboard.algolia.com/apps)，用来做搜索应用的定制化配置(我是在申请成功前，提前注册了，如果是等申请的话好像是不用手动注册的，对方发邮件后，点击接受邀请链接就可以进去了)
 
 猜测是我的域名还存在他们的系统记录里，所以不能生成新的凭证，应该是一个域名下只能申请一次，那总不能换域名吧？  既然常规流程走不通，那就试试人工吧，发邮件说明问题后,得到的回复竟然是
 ```txt
@@ -55,9 +57,12 @@ The application you've requested help for is currently on a 'DocSearch' plan, wh
 ```
 大意就是说他们提供的是免费产品，不包括技术支持，那合着意思就是不付费不给帮助了？话说回来，付费是不可能的，免费额度`10w/month`,个人玩玩绰绰有余了，根本到不了付费上限，现在的问题是，有没有其他官方提供的白嫖渠道呢😋
 
+### 其他搜索方案
+
 > `本地搜索`：其实在之也用过本地搜索，所谓本地搜索，就是根据页面在本地生成搜索索引，然后在用户访问站点时加载搜索索引文件，属于轻量级的搜索解决方案。
 > 
 > `问题`：站点小页面少的情况下还勉强可以接受，页面比较多时，搜索索引文件也会变得非常大，它可能会拖慢页面的加载速度，体验属实不行
+> 
 > form -> [vuepress-search](https://v2.vuepress.vuejs.org/zh/reference/plugin/search.html)
 
 ## 另谋出路
@@ -96,9 +101,9 @@ API_KEY=YOUR_API_KEY
 
 <img src='https://s1.ax1x.com/2023/07/11/pCWJaDK.png' width='500'/>
 
-#### config
+#### 爬虫规则配置
 
-启动的时候要传入[爬虫配置](https://docsearch.algolia.com/docs/legacy/config-file/)文件，里面需要配置站点相关的信息以及爬取内容的逻辑，我目前的配置如下，这个后面[搜索结果优化](#搜索结果优化)再细说具体字段
+启动的时候要传入[爬虫规则配置](https://docsearch.algolia.com/docs/legacy/config-file/)文件，里面需要配置站点相关的信息以及爬取内容的逻辑，我目前的配置如下，这个后面[搜索结果优化](#搜索结果优化)再细说具体字段
 
 ```js
 {
@@ -137,13 +142,13 @@ API_KEY=YOUR_API_KEY
                 "selector": "",
                 "default_value": "Javascript"
             },
-            "lvl1": ".theme-container h1",
-            "lvl2": ".theme-container h2",
-            "lvl3": ".theme-container h3",
-            "lvl4": ".theme-container h4",
-            "lvl5": ".theme-container h5",
-            "lvl6": ".theme-container h6",
-            "content": ".theme-container p, .theme-container li"
+            "lvl1": ".theme-default-content h1",
+            "lvl2": ".theme-default-content h2",
+            "lvl3": ".theme-default-content h3",
+            "lvl4": ".theme-default-content h4",
+            "lvl5": ".theme-default-content h5",
+            "lvl6": ".theme-default-content h6",
+            "content": ".theme-default-content p, .theme-default-content li"
         },
         "about": {
             "lvl0": {
@@ -188,9 +193,6 @@ API_KEY=YOUR_API_KEY
 }
 
 ```
-> `sitemap_urls` 这个字段很关键，爬虫主要通过`sitemap`来生成索引
-> 
-> 当时写成了`https: //zhaopanpan.com/sitemap.xml`多了个空格，硬是爬了个寂寞
 
 ### 运行爬虫
 
@@ -221,21 +223,31 @@ docker run -it --env-file=.env -e "CONFIG=$(cat ./config.json | jq -r tostring)"
 
 <img src='https://s1.ax1x.com/2023/07/11/pCW4061.png' width='100%'/>
 
-关于如何使用:
+关于如何选择:
 - 可以直接使用Algolia提供的[@docsearch/js](https://www.npmjs.com/package/@docsearch/js)，在前端直接调用，做UI渲染(此插件是React写的)。
 - 本blog基于[vuepress2](https://v2.vuepress.vuejs.org/)，直接用了官方封装好的[@vuepress/plugin-docsearch@next](https://v2.vuepress.vuejs.org/zh/reference/plugin/docsearch.html#docsearch)插件，这里不在赘述。
 - UI这块的生态还是比较丰富的，很多框架基于Algolia的`@docsearch/js`做了上层装，有web生态的包，也有移动端的，Algolia做了收集，可以去[search-ui](https://www.algolia.com/developers/search-ui/)看看。
 
 ## 搜索结果优化
 
-其实到这一步功能已经可以用了，但是又怎能满足于现状呢？仔细看了下vue的搜索结果，都会根据该关键字所在目录，把上级标题显示出来，层次分明，一目了然，使用者很容易找到自己想要的信息，我也想要这样的效果
+其实到这一步搜索功能已经可以用了，但是仔细看了下vue的搜索结果，都会根据该关键字，把主题或上级标题显示出来，层次分明，一目了然，使用者很容易找到自己想要的信息，明人不说暗话，我也想要这样的效果
 
 <img src='https://s1.ax1x.com/2023/07/11/pCWogtU.png' width='500'/>
 
-这里就要说一下如何优化[config](#config)了，比较重要的字段如下：
+这里说一下我是如何优化[爬虫规则配置](#爬虫规则配置)了，[官方配置文档](https://docsearch.algolia.com/docs/legacy/config-file/)比较干，我也是通过尝试才确定上面配置的，主要说下比较重要的字段：
 
+### index_name
+
+管理端索引名称
+
+### sitemap_urls
+
+这个字段很关键，`sitemap`基本包含了所有的页面，爬虫通过它可以很轻松的来收集索引，至于如何生成`sitemap`，网上有很多工具可用
+
+> 当时写成了`https: //zhaopanpan.com/sitemap.xml`多了个空格，硬是爬了个寂寞
 ### start_urls
 
+`start_urls`可传入一个数组，里面包含可以抓取网站的地址
 `start_urls`可传入一个数组，里面包含可以抓取网站的地址
 
 ```json
@@ -243,24 +255,25 @@ docker run -it --env-file=.env -e "CONFIG=$(cat ./config.json | jq -r tostring)"
   "start_urls": [
         {
             "url": "https://zhaopanpan.com/posts/javascript",
-            "page_rank": 1,
-            "selectors_key": "javascript",
-            "tags": [
-                "javascript"
-            ]
         }
   ]
 }
 ```
-### selectors_key
+### selectors
 
-如果我要对某个地址做特殊出来，我可以给他加个`selectors_key`，一个自定义的值(就好比我要操作dom的时候要给节点加一个`id`)，加了一个叫`javascript`的选择器之后，就可以在后面的`selectors`下统一分配
+选择器部分是很关键的，想要实现的效果主要靠他实现。
+
+加入我要对某个`start_urls`地址做特殊处理，我可以给他加个`selectors_key`，一个自定义的值(就好比我要操作dom的时候要给节点加一个`id`)，加了一个叫`javascript`的选择器之后，就可以在后面的`selectors`对`javascript`进行详细配置
 ```json
 {
   "start_urls": [
         {
             "url": "https://zhaopanpan.com/posts/javascript",
             "selectors_key": "javascript",
+            "page_rank": 1,
+            "tags": [
+                "javascript"
+            ]
         }
     ],
   "selectors": {
@@ -281,5 +294,24 @@ docker run -it --env-file=.env -e "CONFIG=$(cat ./config.json | jq -r tostring)"
 }
 
 ```
+`lvl0-lvl6`都是用于创建记录层级结构的选择器，`lvl0`的`selector`我故意留空，我给他加了默认值，他就可以给我显示标题了
 
 
+### page_rank
+
+结果排名
+
+根据需要可以调整搜索结果的顺序
+
+## 验证优化效果
+
+重新执行上面[docker命令](#运行爬虫)，很符合预期有木有？
+
+<img src='https://s1.ax1x.com/2023/07/12/pCfY64e.png' width='100%'/>
+
+
+## 总结
+
+写这篇文章的前一周，搜索功能还是好好的，无奈手残删除了账户，导致原来正常的功能无法使用，本寄希望于官方技术支持来救火，但无奈对方客服太极功力深厚，几回合下来，小弟不出意外败下阵来，不得不另寻出路。
+
+幸好官方提供了手动执行爬虫的方式，一番猛虎操作下来，不仅恢复了翻车前的功能，通过自定义爬虫配置，还实现了一些搜索结果自定义的优化，也不枉周日一个下午的奋战了
