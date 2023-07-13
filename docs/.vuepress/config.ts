@@ -7,7 +7,7 @@ import {head} from './config/head/index.js'
 export default defineUserConfig({
 	// 如果设置语言 会导致私有化部署的algolia搜索为空，所以暂时置空，
 	// 通过官方申请的algolia账号不受影响
-	lang: ' ',
+	lang: '-',
 	title: '幻无',
 	base: '/',
 	description: '幻无的blog',
