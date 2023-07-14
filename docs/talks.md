@@ -1,5 +1,4 @@
 ---
-lang: zh-CN
 title: talks
 sidebar: false
 description: 

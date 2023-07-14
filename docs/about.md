@@ -1,5 +1,4 @@
 ---
-lang: zh-CN
 title: 关于
 sidebar: false
 description: 
