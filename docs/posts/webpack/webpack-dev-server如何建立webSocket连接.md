@@ -6,7 +6,7 @@ tag:
 category: 
  - frontEnd 
  - 源码
-title: webpack-dev-server建立webSocket连接时发生了什么？
+title: webpack-dev-server如何建立webSocket连接？
 cover: https://picsum.photos/seed/picsum/740/300
 description: 上一篇主要是为了解决热刷新的问题，解决的同时，又引申出了另一个问题，那就是webpack-dev-server是如何和浏览器建立webSocket连接呢？建立连接的时候发生了什么？建立连接之前做了哪些事情呢？
 ---

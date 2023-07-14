@@ -4,9 +4,10 @@ date: "2023-07-10"
 excerpt: true
 tag: 
  - vuepress
+ - algolia
 category: 
  - frontEnd
-title: 如何手动跑algolia的爬虫来打造属于自己的站点搜索呢🤔
+title: 如何手动跑algolia的爬虫来打造自己的站点搜索呢🤔
 cover: 
 ---
 

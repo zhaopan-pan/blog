@@ -6,14 +6,14 @@ tag:
  - vuepress
 category: 
  - frontEnd
-title: 
+title: 通过cssModules来优化vuepress源码
 ---
 
 <div class='custom-article-excerpt'>
 <Image src='https://v2.vuepress.vuejs.org/images/hero.png' width='100' height='100'/>
-<h1 class='custom-article-name'>
-通过cssModules来优化vuepress源码
-</h1>
+<div class='cover-info-text'>
+问题代码咱不怕，一步一步来优化...
+</div>
 </div>
 
  <!-- more -->
