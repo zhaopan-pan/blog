@@ -79,7 +79,7 @@ jobs:
 
 通过编写自动化脚本，解决手动执行效率低下的问题，转移了运行环境后，还节约了本机软硬件运行资源，可谓一举两得
 
-这都是`github`的[action](https://docs.github.com/zh/actions)的功劳，用好了，真的可以起到事半功倍的效果
+用好`github`的[action](https://docs.github.com/zh/actions)工作流配置，让任务自动执行，真的可以起到事半功倍的效果
 
 ## 未来
 

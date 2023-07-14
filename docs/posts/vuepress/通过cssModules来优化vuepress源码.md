@@ -1,26 +1,20 @@
 ---
 sidebar: false
 date: "2023-05-04"
-excerpt: true
+excerpt: false
 tag: 
  - vuepress
 category: 
  - frontEnd
 title: 通过cssModules来优化vuepress源码
+cover: https://picsum.photos/id/89/1000/400
 ---
-
-<div class='custom-article-excerpt'>
-<Image src='https://v2.vuepress.vuejs.org/images/hero.png' width='100' height='100'/>
-<div class='cover-info-text'>
-问题代码咱不怕，一步一步来优化...
-</div>
-</div>
-
- <!-- more -->
 
 ## 背景
 
 如你目前所见，就是最近在重写的[博客主题](https://github.com/zhaopan-pan/vuepress-theme-zp)，基于[vuepress2](https://v2.vuepress.vuejs.org/)的默认主题([theme-default](https://github.com/vuepress/vuepress-next/tree/main/ecosystem/theme-default))，原主题是知识文档库的风格，不满足[blog](https:zhaopanpan.com)的基础功能，所以就开始了魔改，在魔改的过程中少不了要研究源码，发现了一些`问题`的代码
+
+<Image src='https://v2.vuepress.vuejs.org/images/hero.png' width='100' height='90'/>
 
 ## 问题 - 1
 ### 样式变量不能在组件中共享
