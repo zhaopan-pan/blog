@@ -5,11 +5,11 @@ import {blogPlugin, commentPlugin, docsearchPlugin} from '../plugin/index.js'
 import cssStr from '../../styles/cssVar.js'
 import path from 'path'
 
-export const themeConfig = (options?: ZpThemeOptions) => ({
+export const themeConfig = (title, options?: ZpThemeOptions) => ({
 	...options,
 	blog: {
-		name: '幻无',
-		description: '幻无的blog',
+		name: title,
+		description: `${title}的blog，记录工作、学习、生活过程中的点滴，主要包括技术、生活两方面`,
 		avatar: 'https://zhaopanpan.com/image/logo.png',
 		homeTopBg: '',
 		// 'https://images.pexels.com/photos/1764702/pexels-photo-1764702.jpeg?auto=compress&cs=tinysrgb&w=1600',

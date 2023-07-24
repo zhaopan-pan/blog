@@ -1,6 +1,6 @@
 import {HeadConfig} from 'vuepress'
 
-export const head: HeadConfig[] = [
+export const getHead = (title: string): HeadConfig[] => [
 	[
 		'link',
 		{
@@ -42,4 +42,19 @@ export const head: HeadConfig[] = [
 	],
 	['meta', {name: 'msapplication-TileColor', content: '#00aba9'}],
 	['meta', {name: 'theme-color', content: '#3eaf7c'}],
+	[
+		'meta',
+		{
+			name: 'keywords',
+			content: '幻无,幻无的blog,zhaopan,zhaopanpan,zp,幻无前端',
+		},
+	],
+	['meta', {name: 'og:site_name', content: title}],
+	['meta', {name: 'og:type', content: 'article'}],
+	['meta', {name: 'og:author', content: '幻无,zp'}],
+	['meta', {name: 'og:url', content: 'https://zhaopanpan.com/'}],
+	[
+		'meta',
+		{name: 'og:image', content: 'https://zhaopanpan.com/image/logo.png'},
+	],
 ]
