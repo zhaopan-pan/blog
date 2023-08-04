@@ -21,7 +21,7 @@ toc: false
 
 ### 📞 联系方式
 
-wx: `pan9625`
+wx: `pan6925`
 
 github: <https://github.com/zhaopan-pan>
 
