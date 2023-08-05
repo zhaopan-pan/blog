@@ -1,10 +1,12 @@
 :root {
-  --c-theme: #3eaf7c !important;
-  scroll-behavior: smooth;
+	/* --c-theme: #2154a4 !important; */
+	--c-theme: #176efb !important;
+	--c-tip-rgb: 23, 110, 251 !important;
+	scroll-behavior: smooth;
 }
 
 @media (min-width: 751px) {
-  #docsearch-container:lang(zh-CN) {
-    min-width: 184.66px;
-  }
+	#docsearch-container:lang(zh-CN) {
+		min-width: 184.66px;
+	}
 }

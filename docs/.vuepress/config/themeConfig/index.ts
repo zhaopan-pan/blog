@@ -11,7 +11,7 @@ export const themeConfig = (title, options?: ZpThemeOptions) => ({
 		name: title,
 		description: `${title}的blog，记录工作、学习、生活过程中的一些思考，主要包括技术、生活等方面`,
 		avatar: 'https://zhaopanpan.com/image/logo.png',
-		homeTopBg: '',
+		// homeTopBg:
 		// 'https://images.pexels.com/photos/1764702/pexels-photo-1764702.jpeg?auto=compress&cs=tinysrgb&w=1600',
 		// 'https://images.pexels.com/photos/3695297/pexels-photo-3695297.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
 		externalLinkList: [
