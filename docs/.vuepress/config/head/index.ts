@@ -49,10 +49,6 @@ export const getHead = (title: string): HeadConfig[] => [
 			content: '幻无,幻无的blog,zhaopan,zhaopanpan,zp,幻无前端',
 		},
 	],
-	['meta', {name: 'og:site_name', content: title}],
-	['meta', {name: 'og:type', content: 'article'}],
-	['meta', {name: 'og:author', content: '幻无,zp'}],
-	['meta', {name: 'og:url', content: 'https://zhaopanpan.com/'}],
 	[
 		'meta',
 		{name: 'og:image', content: 'https://zhaopanpan.com/image/logo.png'},

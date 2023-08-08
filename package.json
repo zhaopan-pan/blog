@@ -1,7 +1,7 @@
 {
 	"name": "blog",
 	"version": "1.0.0",
-	"description": "my blog",
+	"description": "huanwu's blog",
 	"main": "",
 	"scripts": {
 		"dev": "DEBUG=vuepress* vuepress dev docs",
@@ -10,15 +10,27 @@
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"upd-theme": "pnpm i -D vuepress-theme-zp@latest"
 	},
-	"keywords": [],
+	"keywords": [
+		"blog",
+		"huanwu blog",
+		"zp blog",
+		"vuepress-theme-zp",
+		"vuepress-theme",
+		"vuepress",
+		"markdown",
+		"theme",
+		"vue",
+		"vite"
+	],
 	"author": "zhaopan",
 	"license": "ISC",
 	"devDependencies": {
-		"@types/node": "^20.2.5",
-		"@vuepress/client": "2.0.0-beta.63",
+		"@types/node": "^20.4.5",
+		"@vuepress/client": "2.0.0-beta.66",
 		"vue": "^3.3.4",
-		"vuepress": "2.0.0-beta.63",
-		"vuepress-plugin-sitemap2": "2.0.0-beta.224",
-		"vuepress-theme-zp": "^1.0.56"
+		"vuepress": "2.0.0-beta.66",
+		"vuepress-plugin-seo2": "2.0.0-beta.234",
+		"vuepress-plugin-sitemap2": "2.0.0-beta.234",
+		"vuepress-theme-zp": "^1.0.58"
 	}
 }
