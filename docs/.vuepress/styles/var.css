@@ -1,6 +1,9 @@
 :root {
 	/* --c-theme: #2154a4 !important; */
 	--c-theme: #176efb !important;
+	--c-theme-light: #0862f4 !important;
+	--c-brand: #176efb !important;
+	--c-brand-light: #176efb !important;
 	--c-tip-rgb: 23, 110, 251 !important;
 	scroll-behavior: smooth;
 }
