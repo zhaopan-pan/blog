@@ -1,6 +1,6 @@
 import {HeadConfig} from 'vuepress'
 
-export const getHead = (title: string): HeadConfig[] => [
+export const getHead = (): HeadConfig[] => [
 	[
 		'link',
 		{

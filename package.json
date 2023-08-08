@@ -31,6 +31,6 @@
 		"vuepress": "2.0.0-beta.66",
 		"vuepress-plugin-seo2": "2.0.0-beta.234",
 		"vuepress-plugin-sitemap2": "2.0.0-beta.234",
-		"vuepress-theme-zp": "^1.0.58"
+		"vuepress-theme-zp": "^1.0.59"
 	}
 }

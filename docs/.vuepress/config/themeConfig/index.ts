@@ -4,12 +4,15 @@ import {navbarZh} from '../navbar/index.js'
 import {blogPlugin, commentPlugin, docsearchPlugin} from './plugin/index.js'
 import cssStr from '../../styles/cssVar.js'
 import path from 'path'
+import siteInfo from '../siteInfo/index.js'
 
-export const themeConfig = (title, options?: ZpThemeOptions) => ({
+const {title, description} = siteInfo
+
+export const themeConfig = (options?: ZpThemeOptions) => ({
 	...options,
 	blog: {
 		name: title,
-		description: `${title}的blog，记录工作、学习、生活过程中的一些思考，主要包括技术、生活等方面`,
+		description,
 		avatar: 'https://zhaopanpan.com/image/logo.png',
 		// homeTopBg:
 		// 'https://images.pexels.com/photos/1764702/pexels-photo-1764702.jpeg?auto=compress&cs=tinysrgb&w=1600',
