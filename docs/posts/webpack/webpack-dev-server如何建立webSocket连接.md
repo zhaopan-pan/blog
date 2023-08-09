@@ -1,5 +1,6 @@
 ---
 sidebar: false
+excerpt: true
 date: "2022-5-5"
 tag: 
  - webpack
@@ -8,11 +9,14 @@ category:
  - 源码
 title: webpack-dev-server如何建立webSocket连接？
 cover: https://picsum.photos/seed/picsum/740/300
-description: 上一篇主要是为了解决热刷新的问题，解决的同时，又引申出了另一个问题，那就是webpack-dev-server是如何和浏览器建立webSocket连接呢？建立连接的时候发生了什么？建立连接之前做了哪些事情呢？
 ---
 
 [pre]:./%E7%BB%99%E5%85%AC%E5%8F%B8%E9%A1%B9%E7%9B%AE%E5%8A%A0%E4%B8%8A%E7%83%AD%E6%9B%B4%E6%96%B0%E5%8A%9F%E8%83%BD.md
 [ws-npm]:https://www.npmjs.com/package/ws
+
+上一篇主要是为了解决热刷新的问题，解决的同时，又引申出了另一个问题，那就是webpack-dev-server是如何和浏览器建立webSocket连接呢？建立连接的时候发生了什么？建立连接之前做了哪些事情呢？
+
+<!-- more -->
 
 ## 背景
 

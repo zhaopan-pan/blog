@@ -2,7 +2,9 @@ import {seoPlugin} from 'vuepress-plugin-seo2'
 import {sitemapPlugin} from 'vuepress-plugin-sitemap2'
 
 export default ({hostname, title, email}) => [
+	// 生成sitemap.xml文件
 	sitemapPlugin({hostname}),
+	// 给html增强seo相关配置
 	seoPlugin({
 		hostname,
 		author: {

@@ -14,7 +14,7 @@ cover:
 <div class='custom-article-excerpt'>
 <img src='https://dashboard.algolia.com/assets/auth/algolia-logo-light-2fc6ad36a48bf09ddd3136a97e71b523494ce964c348c150a628d29e94f15400.svg' height='30' style="margin: 20px 20px 20px 0;"/>
 <div class='cover-info-text'>
-作为'api工程师'，平时少不了要去vue或react官方文档来搜索api，在享受精确搜索的同时，有想过该如何集成到自己的项目里面吗？这篇文章主要分享自己使用时的`坎坷`历程...
+作为'api工程师'，平时少不了要去vue或react官方文档来搜索api，在享受精确搜索的同时，有想过该如何将`Algolia`集成到自己的项目里面吗？这篇文章主要分享自己使用时的`坎坷`历程...
 </div>
 </div>
 

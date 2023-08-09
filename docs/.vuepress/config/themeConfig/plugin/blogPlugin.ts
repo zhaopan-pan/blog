@@ -4,6 +4,8 @@ export const blogPlugin = {
 	// only files under posts are articles
 	filter: ({filePathRelative}) =>
 		(filePathRelative || '').startsWith('posts/'),
+	// 可以使用此函数来跳过你不需要生成摘要的页面
+	excerptFilter: ({frontmatter}) => frontmatter.excerpt,
 	getInfo: ({frontmatter, title, data}) => ({
 		title,
 		author: frontmatter.author || '',
@@ -13,11 +15,8 @@ export const blogPlugin = {
 		mobileCover: frontmatter.mobileCover || '',
 		tag: frontmatter.tag || [],
 		readme: frontmatter.readme,
-		description: frontmatter.description || '',
-		excerpt: data.excerpt || '',
+		excerpt: data.excerpt,
 	}),
-	// 不过滤摘录
-	excerptFilter: ({frontmatter}) => frontmatter.excerpt,
 	category: [
 		{
 			key: 'category',
