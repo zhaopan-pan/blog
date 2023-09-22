@@ -29,7 +29,7 @@ cover:
 
 说起[Algolia](https://www.algolia.com/doc),可能大家会有点陌生，但如果你看过[vue](https://cn.vuejs.org/)或[react](https://react.dev)的文档，那你大概率用过他们的搜索，以下图`vue`搜索为例:
 
-<img src='https://s1.ax1x.com/2023/07/11/pCWEjEV.png' width='500'/>
+<img src='https://z1.ax1x.com/2023/07/11/pCWEjEV.png' width='500'/>
 
 从右下角那几个字可以看出vue的搜索服务是algolia提供的
 
@@ -39,7 +39,7 @@ cover:
 
 除了vue、react，基本上现代前端开源项目的文档搜索大多都是用的这个。
 
-<img src='https://s1.ax1x.com/2023/07/11/pCWEvNT.jpg' width='500'/>
+<img src='https://z1.ax1x.com/2023/07/11/pCWEvNT.jpg' width='500'/>
 
 ### 上车
 <!-- https://docsearch.algolia.com/apply/ -->
@@ -77,7 +77,7 @@ The application you've requested help for is currently on a 'DocSearch' plan, wh
 
 老邮箱是不能用了，用新的邮箱注册algolia，重新建应用，然后创建索引，应用名称和索引名称自己定就行
 
-<img src='https://s1.ax1x.com/2023/07/11/pCWEOH0.png' width='500'/>
+<img src='https://z1.ax1x.com/2023/07/11/pCWEOH0.png' width='500'/>
 
 
 ### 配置爬虫环境
@@ -94,13 +94,13 @@ API_KEY=YOUR_API_KEY
 
 在概述页可以看到`API keys`入口，查看方式如下：
 <br>
-<img src='https://s1.ax1x.com/2023/07/11/pCW3T81.jpg' width='500'/>
+<img src='https://z1.ax1x.com/2023/07/11/pCW3T81.jpg' width='500'/>
 <br>
 
 打开后，复制红色框中的变量，爬虫需要对索引有写入权限，所以这里使用`Admin API Key`，而绿色框中的APIKey只有搜素权限，是前端用的，
 [后面](#前端ui)会提到
 
-<img src='https://s1.ax1x.com/2023/07/11/pCWJaDK.png' width='500'/>
+<img src='https://z1.ax1x.com/2023/07/11/pCWJaDK.png' width='500'/>
 
 #### 爬虫规则配置
 
@@ -212,17 +212,17 @@ docker run -it --env-file=.env -e "CONFIG=$(cat ./config.json | jq -r tostring)"
 
 这时候如果配置无误，应该会看到类似下面爬取的内容信息
 
-<img src='https://s1.ax1x.com/2023/07/11/pCWWo0U.png' width='100%'/>
+<img src='https://z1.ax1x.com/2023/07/11/pCWWo0U.png' width='100%'/>
 
 `Nb hits:1006`说明此次爬取成功命中的索引数量，这时去Algolia管理后台看下，显然刚才爬取的索引都已经记录成功了，perfect！
 
-<img src='https://s1.ax1x.com/2023/07/11/pCWhe2R.png' width='100%'/>
+<img src='https://z1.ax1x.com/2023/07/11/pCWhe2R.png' width='100%'/>
 
 ### 前端UI
 
 到这一步说明爬虫已经就绪，如何在前端验证呢，最好能直接搜索一下，Algolia已经贴心准备了[playground](https://codesandbox.io/s/docsearchjs-v3-playground-z9oxj?file=/src/index.js)，准备好`appId、apiKey、indexName`三个变量，这里的`apiKey`就是上面环境变量截图的[绿色框](#env-环境变量)中的值，其他两个变量就不用说了，上面都有提过，配好后，随便搜个关键字，有结果说明已经成功了！很nice不是！🎉
 
-<img src='https://s1.ax1x.com/2023/07/11/pCW4061.png' width='100%'/>
+<img src='https://z1.ax1x.com/2023/07/11/pCW4061.png' width='100%'/>
 
 关于如何选择:
 - 可以直接使用Algolia提供的[@docsearch/js](https://www.npmjs.com/package/@docsearch/js)，在前端直接调用，做UI渲染(此插件是React写的)。
@@ -233,7 +233,7 @@ docker run -it --env-file=.env -e "CONFIG=$(cat ./config.json | jq -r tostring)"
 
 其实到这一步搜索功能已经可以用了，但是仔细看了下vue的搜索结果，都会根据该关键字，把主题或上级标题显示出来，层次分明，一目了然，使用者很容易找到自己想要的信息，明人不说暗话，我也想要这样的效果
 
-<img src='https://s1.ax1x.com/2023/07/11/pCWogtU.png' width='500'/>
+<img src='https://z1.ax1x.com/2023/07/11/pCWogtU.png' width='500'/>
 
 这里说一下我是如何优化[爬虫规则配置](#爬虫规则配置)了，[官方配置文档](https://docsearch.algolia.com/docs/legacy/config-file/)比较干，我也是通过尝试才确定上面配置的，主要说下比较重要的字段：
 
@@ -308,7 +308,7 @@ docker run -it --env-file=.env -e "CONFIG=$(cat ./config.json | jq -r tostring)"
 
 重新执行上面[docker命令](#运行爬虫)，很符合预期有木有？
 
-<img src='https://s1.ax1x.com/2023/07/12/pCfY64e.png' width='100%'/>
+<img src='https://z1.ax1x.com/2023/07/12/pCfY64e.png' width='100%'/>
 
 
 ## 总结

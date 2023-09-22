@@ -64,7 +64,7 @@ jobs:
 
 参数要以变量的方式提前准备好，新建方式如下图
 
-<img src='https://s1.ax1x.com/2023/07/14/pC43jte.png' width='100%'/>
+<img src='https://z1.ax1x.com/2023/07/14/pC43jte.png' width='100%'/>
 
 
 这样提交后`github`就会去读取这个目录下的脚本配置，当`master`分支`push`的时候就会触发爬虫
@@ -72,7 +72,7 @@ jobs:
 
 触发成功如下图:
 
-<img src='https://s1.ax1x.com/2023/07/14/pC48DAO.png' width='100%'/>
+<img src='https://z1.ax1x.com/2023/07/14/pC48DAO.png' width='100%'/>
 
 
 ## 总结
