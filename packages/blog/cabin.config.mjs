@@ -3,7 +3,7 @@
 
 /** @satisfies {CabinOptions} */
 const config = {
-  url: 'https://zhaopanpan.com',
+  url: 'https://nas.zhaopan.site:10443',
   language: 'zh-CN',
   socialLocale: 'zh_CN',
   name: '幻无的小屋',
@@ -21,7 +21,6 @@ const config = {
       'google-site-verification': 'kYOo5UIMO-xn2SWFh9oPC2C4WqBJ73B2T0Qe_vxpi5k',
     },
   },
-  comments: { serverURL: 'https://vercel.zhaopanpan.com', lang: 'zh-CN' },
   themeStorageKey: 'huanwu-theme',
   home: {
     title: 'Huanwu’s Cabin',

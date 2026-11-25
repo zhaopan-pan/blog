@@ -72,9 +72,11 @@ docker compose pull
 docker compose up -d --wait
 ```
 
-默认只监听 NAS 的 `127.0.0.1:8080`。宿主机反代可以把博客域名转发到此地址；如端口占用，在 `.env` 改 `BLOG_PORT`。如果反代不在 NAS 宿主机上，可把 `BLOG_BIND_IP` 改成 NAS 局域网 IP，仅允许可信反代访问。容器只提供 HTTP，TLS 由公网反代终止。NAS 管理入口 `9443` 不变；正式博客仍用 `https://zhaopanpan.com` 的默认 `443`，DNS 解析本身不会映射端口。
+正式地址为 `https://nas.zhaopan.site:10443`。将公网 TCP `10443` 转发到 NAS 上博客的 HTTPS 反代监听口，反代使用覆盖 `nas.zhaopan.site` 的证书，再转发到 `http://127.0.0.1:8080`。容器本身只提供 HTTP，不能把公网 HTTPS 端口直接映射到容器端口。NAS 管理入口 `9443` 保持不变，不要把 Docker API 或 NAS 管理端口用于博客部署。
 
-升级和回滚用同一流程：把 `BLOG_TAG` 改成要部署的版本，再执行上面两条命令。首次切换从外网验收旧中文 `.html` 链接、分类目录、HTTP 404、中文搜索和 Waline 评论。
+Compose 默认只绑定 `127.0.0.1:8080`。如果宿主机端口占用，设置 `BLOG_PORT`，并同步修改反代的上游端口。如果反代不在 NAS 宿主机上，将 `BLOG_BIND_IP` 改为 NAS 局域网 IP，并限制只有可信反代能访问。要改公网端口，需同时修改反代、端口转发和 `cabin.config.mjs` 的 `url`，然后重新构建镜像；canonical 和 sitemap 会使用该地址。
+
+每次推送后，等发布工作流成功，再把 NAS 同目录 `.env` 的 `BLOG_TAG` 改为新版本并执行上面两条命令。回滚时改回上一版标签并执行相同命令；不要删除上一版。首次切换用手机流量验收 HTTPS、旧中文 `.html` 路径、分类目录、HTTP 404 和中文搜索。旧域名已退役，不再保证旧域名链接可达；站内路径仍由迁移校验保护。旧 Waline 后端依赖退役域名，当前不加载评论；有新后端后再设置 `comments.serverURL`。
 
 ### 直接发布静态文件
 

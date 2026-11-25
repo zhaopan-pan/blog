@@ -29,13 +29,21 @@ jobs:
           pnpm build
           pnpm verify:migration
       - name: Smoke test the image
+        shell: bash
         run: |
+          set -x
           docker build -t blog:smoke .
-          docker run -d --name blog-smoke -p 127.0.0.1::8080 blog:smoke
-          trap 'docker rm -f blog-smoke >/dev/null' EXIT
+          docker run -d --name blog-smoke --health-interval=1s -p 127.0.0.1::8080 blog:smoke
+          trap 'docker logs blog-smoke; docker rm -f blog-smoke >/dev/null' EXIT
+          for attempt in {1..15}; do
+            health=$(docker inspect --format '{{.State.Health.Status}}' blog-smoke)
+            if [ "$health" = healthy ]; then break; fi
+            sleep 1
+          done
+          test "$health" = healthy
           base="http://$(docker port blog-smoke 8080/tcp)"
           post=$(node -p 'encodeURI("/posts/react/面试知识点-react.html")')
-          curl --fail --silent --show-error --retry 10 --retry-connrefused --retry-delay 1 "$base/" >/dev/null
+          curl -fsS "$base/" >/dev/null
           curl -fsS "$base$post" >/dev/null
           curl -fsS "$base/category/" >/dev/null
           curl -fsS "$base/pagefind/pagefind-entry.json" >/dev/null
