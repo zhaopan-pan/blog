@@ -1,0 +1,7 @@
+**
+!deploy/
+!deploy/nginx.conf
+!packages/
+!packages/blog/
+!packages/blog/dist/
+!packages/blog/dist/**

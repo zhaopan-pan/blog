@@ -59,6 +59,25 @@ TypeScript 公共选项放在根目录的 [`tsconfig.base.json`](tsconfig.base.j
 
 ## 发布与回滚
 
+### NAS Docker 部署
+
+推送到 `master` 后，[发布工作流](.github/workflows/blog-image.yml) 构建站点、执行迁移校验并对容器做 HTTP 验收。通过后向 GHCR 发布 `ghcr.io/zhaopan-pan/blog:sha-<完整提交 SHA>`，同时支持 `linux/amd64` 和 `linux/arm64`。工作流不连接 NAS，也不自动替换线上容器。
+
+在 NAS 上放置 [`deploy/compose.yaml`](deploy/compose.yaml)，同目录的 `.env` 内设置 `BLOG_TAG=sha-<发布工作流对应的完整提交 SHA>`。如 GHCR 镜像是私有的，先用拥有读取该包权限的账号和带 `read:packages` 的 classic PAT 登录 `ghcr.io`，不要把令牌写入 `.env`。
+
+在 Compose 文件所在目录执行：
+
+```sh
+docker compose pull
+docker compose up -d --wait
+```
+
+默认只监听 NAS 的 `127.0.0.1:8080`。宿主机反代可以把博客域名转发到此地址；如端口占用，在 `.env` 改 `BLOG_PORT`。如果反代不在 NAS 宿主机上，可把 `BLOG_BIND_IP` 改成 NAS 局域网 IP，仅允许可信反代访问。容器只提供 HTTP，TLS 由公网反代终止。NAS 管理入口 `9443` 不变；正式博客仍用 `https://zhaopanpan.com` 的默认 `443`，DNS 解析本身不会映射端口。
+
+升级和回滚用同一流程：把 `BLOG_TAG` 改成要部署的版本，再执行上面两条命令。首次切换从外网验收旧中文 `.html` 链接、分类目录、HTTP 404、中文搜索和 Waline 评论。
+
+### 直接发布静态文件
+
 1. 构建并验证后，把 **`packages/blog/dist/` 的内容**发布到域名根目录。静态服务器须支持原有 `.html` URL 和 `/目录/` 下的 `index.html`，未匹配路径返回 `404.html` 和 HTTP 404；不要加 SPA fallback。
 2. 发布前保留上一版静态产物和服务器配置。切换后抽查首页、中文 `.html` 深链、分类目录、站点地图和旧浏览器缓存。保留根路径 `/service-worker.js`，用于注销旧 VuePress worker，避免旧缓存继续生效。
 3. `dist/pagefind/` 随同一批静态文件一起发布，不需单独重建线上索引。Waline 评论继续使用旧文章 URL 作为标识。新站不需要 Node.js 服务进程。

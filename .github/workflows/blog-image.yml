@@ -1,0 +1,56 @@
+name: Publish blog image
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    env:
+      ASTRO_TELEMETRY_DISABLED: '1'
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: pnpm/action-setup@08c4be7e2e672a47d11bd04269e27e5f3e8529cb # v6.0.0
+      - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+      - name: Build and verify static site
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm check
+          pnpm build
+          pnpm verify:migration
+      - name: Smoke test the image
+        run: |
+          docker build -t blog:smoke .
+          docker run -d --name blog-smoke -p 127.0.0.1::8080 blog:smoke
+          trap 'docker rm -f blog-smoke >/dev/null' EXIT
+          base="http://$(docker port blog-smoke 8080/tcp)"
+          post=$(node -p 'encodeURI("/posts/react/面试知识点-react.html")')
+          curl --fail --silent --show-error --retry 10 --retry-connrefused --retry-delay 1 "$base/" >/dev/null
+          curl -fsS "$base$post" >/dev/null
+          curl -fsS "$base/category/" >/dev/null
+          curl -fsS "$base/pagefind/pagefind-entry.json" >/dev/null
+          curl -fsS "$base/service-worker.js" | cmp packages/blog/dist/service-worker.js -
+          status=$(curl -sS -o "$RUNNER_TEMP/blog-404.html" -w '%{http_code}' "$base/missing-page")
+          test "$status" = 404
+          cmp packages/blog/dist/404.html "$RUNNER_TEMP/blog-404.html"
+      - name: Sign in to GHCR
+        env:
+          GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: docker login ghcr.io --username "$GITHUB_ACTOR" --password-stdin <<< "$GHCR_TOKEN"
+      - name: Publish amd64 and arm64 image
+        run: |
+          docker buildx create --use
+          docker buildx build --platform linux/amd64,linux/arm64 \
+            --label "org.opencontainers.image.source=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY" \
+            --label "org.opencontainers.image.revision=$GITHUB_SHA" \
+            --tag "ghcr.io/${GITHUB_REPOSITORY,,}:sha-$GITHUB_SHA" --push .
