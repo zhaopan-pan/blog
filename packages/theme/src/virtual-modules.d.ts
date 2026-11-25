@@ -4,10 +4,7 @@ declare module 'virtual:cabin/config' {
     language: string
     search: boolean
     home: Required<
-      Pick<
-        NonNullable<import('./types').CabinOptions['home']>,
-        'title' | 'tagline' | 'intro' | 'recentCount'
-      >
+      Pick<NonNullable<import('./types').CabinOptions['home']>, 'title' | 'intro' | 'recentCount'>
     > &
       NonNullable<import('./types').CabinOptions['home']>
   }

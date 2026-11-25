@@ -10,7 +10,6 @@ interface Props {
   home: {
     title: string
     titleLanguage?: string
-    tagline: string
     intro: readonly (readonly { text: string; href?: string }[])[]
   }
   email?: string
@@ -25,9 +24,7 @@ const { site, home, email, archiveHref, recent, older } = Astro.props
   <div class="column home">
     <div class="home-grid">
       <header class="home-intro">
-        <p class="home-kicker">{site.name}</p>
         <h1 lang={home.titleLanguage}>{home.title}</h1>
-        <p class="lead">{home.tagline}</p>
         <div class="home-copy">
           {home.intro.map((paragraph) => (
             <p>{paragraph.map(({ text, href }) => (href ? <a href={href}>{text}</a> : text))}</p>

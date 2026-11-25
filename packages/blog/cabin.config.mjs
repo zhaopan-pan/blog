@@ -3,7 +3,7 @@
 
 /** @satisfies {CabinOptions} */
 const config = {
-  url: 'https://nas.zhaopan.site:10443',
+  url: 'https://zhaopan.me',
   language: 'zh-CN',
   socialLocale: 'zh_CN',
   name: '幻无的小屋',
@@ -25,7 +25,6 @@ const config = {
   home: {
     title: 'Huanwu’s Cabin',
     titleLanguage: 'en',
-    tagline: '记录工作、学习、生活过程中的一些思考。',
     intro: [
       [
         {

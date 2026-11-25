@@ -6,7 +6,7 @@ toc: false
 ---
 
 ### 🙋‍♂️ 我是谁？
-我叫幻无，做了多年前端开发，现在主要做客户端，用得比较多的是 Vue、Electron 和 Vite，也负责团队编码规范和日常管理。
+我叫幻无，是一名全栈开发者。目前主要专注于客户端开发、前端工程化、Agent 开发提效等方面，也负责团队的开发规范和日常管理工作。
 
 过去的开发工作中，也用过 React、TypeScript、webpack、Redux、Taro 和 Ant Design。
 

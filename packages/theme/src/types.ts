@@ -33,7 +33,6 @@ export interface CabinOptions extends Omit<ThemeSite, 'language'> {
   home?: {
     title?: string
     titleLanguage?: string
-    tagline?: string
     intro?: readonly (readonly { text: string; href?: string }[])[]
     recentCount?: number
     cabinArchiveBefore?: string

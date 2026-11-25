@@ -61,26 +61,28 @@ TypeScript 公共选项放在根目录的 [`tsconfig.base.json`](tsconfig.base.j
 
 ### NAS Docker 部署
 
-推送到 `master` 后，[发布工作流](.github/workflows/blog-image.yml) 构建站点、执行迁移校验并对容器做 HTTP 验收。通过后向 GHCR 发布 `ghcr.io/zhaopan-pan/blog:sha-<完整提交 SHA>`，同时支持 `linux/amd64` 和 `linux/arm64`。工作流不连接 NAS，也不自动替换线上容器。
+推送到 `master` 后，[发布工作流](.github/workflows/blog-image.yml) 构建站点、执行迁移校验并对容器做 HTTP 验收。通过后向 GHCR 发布 `ghcr.io/zhaopan-pan/blog:production` 和不可变的 `ghcr.io/zhaopan-pan/blog:sha-<完整提交 SHA>`，同时支持 `linux/amd64` 和 `linux/arm64`。工作流不连接 NAS，也不直接替换线上容器。
 
-在 NAS 上放置 [`deploy/compose.yaml`](deploy/compose.yaml)，同目录的 `.env` 内设置 `BLOG_TAG=sha-<发布工作流对应的完整提交 SHA>`。如 GHCR 镜像是私有的，先用拥有读取该包权限的账号和带 `read:packages` 的 classic PAT 登录 `ghcr.io`，不要把令牌写入 `.env`。
+在 NAS 的 Docker 项目中使用 [`deploy/compose.yaml`](deploy/compose.yaml)，默认拉取 `production` 标签；需要固定版本或回滚时，在同目录 `.env` 设置 `BLOG_TAG=sha-<完整提交 SHA>`。如 GHCR 镜像是私有的，先用拥有读取该包权限的账号和带 `read:packages` 的 classic PAT 登录 `ghcr.io`，不要把令牌写入 `.env`。
 
-在 Compose 文件所在目录执行：
+在绿联 Docker 项目的「管理」中开启**镜像更新检测**；如果当前 UGOS 版本提供自动更新开关，可开启它。`pull_policy: always` 只会在 Compose 执行时强制拉取，不会自己定时轮询。没有自动更新开关时，在 NAS 的任务计划中定期执行 [`deploy/update.sh`](deploy/update.sh)：
 
 ```sh
-docker compose pull
-docker compose up -d --wait
+cd /共享文件夹/docker/blog
+./update.sh
 ```
 
-正式地址为 `https://nas.zhaopan.site:10443`。将公网 TCP `10443` 转发到 NAS 上博客的 HTTPS 反代监听口，反代使用覆盖 `nas.zhaopan.site` 的证书，再转发到 `http://127.0.0.1:8080`。容器本身只提供 HTTP，不能把公网 HTTPS 端口直接映射到容器端口。NAS 管理入口 `9443` 保持不变，不要把 Docker API 或 NAS 管理端口用于博客部署。
+在 Compose 文件所在目录手动更新时也执行 `./update.sh`。升级前保留上一个 SHA 标签；回滚时在 `.env` 写入上一版 `sha-...`，再执行相同脚本。首次切换用手机流量验收 HTTPS、旧中文 `.html` 路径、分类目录、HTTP 404、中文搜索和 gzip 响应。
 
-Compose 默认只绑定 `127.0.0.1:8080`。如果宿主机端口占用，设置 `BLOG_PORT`，并同步修改反代的上游端口。如果反代不在 NAS 宿主机上，将 `BLOG_BIND_IP` 改为 NAS 局域网 IP，并限制只有可信反代能访问。要改公网端口，需同时修改反代、端口转发和 `cabin.config.mjs` 的 `url`，然后重新构建镜像；canonical 和 sitemap 会使用该地址。
+正式地址为 `https://zhaopan.me`。Cloudflare Tunnel 将该域名发布到博客 HTTP 后端；博客容器继续只监听 NAS 本机端口，Lucky 的 `nas.zhaopan.site:10443` 可保留作为备用入口。NAS 管理口 `9443` 不动，也不要把 Docker API 暴露到公网。
 
-每次推送后，等发布工作流成功，再把 NAS 同目录 `.env` 的 `BLOG_TAG` 改为新版本并执行上面两条命令。回滚时改回上一版标签并执行相同命令；不要删除上一版。首次切换用手机流量验收 HTTPS、旧中文 `.html` 路径、分类目录、HTTP 404 和中文搜索。旧域名已退役，不再保证旧域名链接可达；站内路径仍由迁移校验保护。旧 Waline 后端依赖退役域名，当前不加载评论；有新后端后再设置 `comments.serverURL`。
+### 压缩
+
+Astro/Vite 已在构建时压缩 JS、CSS 等静态资源；HTML、JSON、SVG 等由容器内 Nginx 按请求启用 gzip。运行时压缩优于在构建阶段额外生成 `.gz` 文件：浏览器协商后才传压缩内容，不增加镜像文件数量，也兼容不支持 gzip 的客户端。若通过 Cloudflare Tunnel 访问，Cloudflare 还会对到访客的响应做边缘传输优化；不需要在仓库里预压缩。
 
 ### 直接发布静态文件
 
 1. 构建并验证后，把 **`packages/blog/dist/` 的内容**发布到域名根目录。静态服务器须支持原有 `.html` URL 和 `/目录/` 下的 `index.html`，未匹配路径返回 `404.html` 和 HTTP 404；不要加 SPA fallback。
 2. 发布前保留上一版静态产物和服务器配置。切换后抽查首页、中文 `.html` 深链、分类目录、站点地图和旧浏览器缓存。保留根路径 `/service-worker.js`，用于注销旧 VuePress worker，避免旧缓存继续生效。
-3. `dist/pagefind/` 随同一批静态文件一起发布，不需单独重建线上索引。Waline 评论继续使用旧文章 URL 作为标识。新站不需要 Node.js 服务进程。
+3. `dist/pagefind/` 随同一批静态文件一起发布，不需单独重建线上索引。新站不需要 Node.js 服务进程。
 4. 回滚时切回先前的完整静态产物和配置，清理 CDN 缓存。VuePress 构建配置、旧部署脚本和 Algolia 爬虫已移除；历史版本可从 Git 找回。

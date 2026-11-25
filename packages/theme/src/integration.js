@@ -78,7 +78,6 @@ export default function cabin(options) {
                     contentRoot,
                     home: {
                       title: site.name,
-                      tagline: site.description,
                       intro: [],
                       recentCount: 3,
                       ...home,

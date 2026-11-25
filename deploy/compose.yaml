@@ -1,6 +1,7 @@
 services:
   blog:
-    image: ghcr.io/zhaopan-pan/blog:${BLOG_TAG:?Set BLOG_TAG to a published sha- tag}
+    image: ghcr.io/zhaopan-pan/blog:${BLOG_TAG:-production}
+    pull_policy: always
     ports:
       - '${BLOG_BIND_IP:-127.0.0.1}:${BLOG_PORT:-8080}:8080'
     restart: unless-stopped
