@@ -1,0 +1,128 @@
+.section-head {
+  @apply flex items-center justify-between gap-4;
+  margin-bottom: 0.48rem;
+}
+
+.section-head h2 {
+  font-size: 1rem;
+  font-weight: 650;
+}
+
+.section-head a {
+  @apply flex items-center whitespace-nowrap text-muted;
+  gap: 0.35rem;
+  font-size: 0.86rem;
+}
+
+.section-head .icon {
+  @apply size-[14px];
+}
+
+.entries,
+.index-list {
+  @apply m-0 list-none p-0;
+}
+
+.entries a {
+  @apply grid items-baseline gap-3;
+  grid-template-columns: minmax(0, 1fr) auto;
+  padding: 0.45rem 0;
+  line-height: 1.58;
+}
+
+.entries a > span {
+  @apply wrap-anywhere;
+}
+
+.entries time {
+  @apply whitespace-nowrap text-muted tabular-nums;
+  font-size: 0.8rem;
+}
+
+.archive,
+.article,
+.page {
+  padding-top: clamp(25px, 4.6vw, 58px);
+}
+
+.section-nav {
+  @apply flex items-baseline;
+  gap: 1.1rem;
+}
+
+.section-nav :is(h1, a) {
+  font-size: clamp(1.55rem, 4vw, 2rem);
+  line-height: 1.3;
+  letter-spacing: -0.035em;
+  font-weight: 650;
+}
+
+.section-nav a {
+  @apply font-medium text-muted;
+}
+
+.page-note {
+  @apply text-muted;
+  font-size: 0.87rem;
+  margin-top: 0.65rem;
+}
+
+.year {
+  margin: 1.75rem 0 0;
+}
+
+.year h2 {
+  @apply text-muted tabular-nums;
+  font-size: clamp(1.55rem, 3vw, 1.9rem);
+  line-height: 1.25;
+  font-weight: 520;
+  letter-spacing: -0.045em;
+  margin-bottom: 0.35rem;
+}
+
+.index-list {
+  margin-top: 1.3rem;
+}
+
+.index-list a {
+  @apply flex items-baseline;
+  gap: 0.9rem;
+  padding: 0.44rem 0;
+}
+
+.index-list a span + span {
+  @apply text-muted;
+  font-size: 0.85rem;
+}
+
+.back {
+  @apply inline-block text-muted;
+  font-size: 0.86rem;
+  margin-bottom: 0.85rem;
+}
+
+.section-head a:hover,
+.entries a:hover,
+.section-nav a:hover,
+.index-list a:hover,
+.back:hover {
+  @apply text-accent;
+}
+
+.post-head h1 {
+  margin: 0.14rem 0 0.7rem;
+}
+
+.post-meta {
+  @apply flex flex-wrap items-baseline gap-2 text-muted;
+  font-size: 0.85rem;
+}
+
+.post-meta a {
+  @apply text-accent;
+}
+
+.post-end {
+  @apply mt-9 flex flex-wrap;
+  gap: 0.4rem 1.2rem;
+}

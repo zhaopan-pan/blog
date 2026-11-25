@@ -1,0 +1,23 @@
+---
+import Site from '../layouts/Site.astro'
+import { themeCopy } from '../theme-copy.js'
+import type { ThemeSite } from '../types'
+
+interface Props {
+  site: ThemeSite
+}
+const { site } = Astro.props
+const { notFound } = themeCopy
+---
+
+<Site {site} title={notFound.title}>
+  <div class="column page">
+    <h1>{notFound.title}</h1>
+    <p class="page-note">
+      {notFound.description}
+      <a class="back" href="/">
+        {notFound.home} <span aria-hidden="true">→</span>
+      </a>
+    </p>
+  </div>
+</Site>

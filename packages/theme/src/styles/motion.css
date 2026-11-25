@@ -1,0 +1,134 @@
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+
+  .dock-nav > *,
+  .theme-button,
+  .toc-open,
+  .toc summary,
+  .entries a,
+  .toc a {
+    transition:
+      color 0.16s ease,
+      background-color 0.16s ease;
+  }
+
+  .cabin svg * {
+    transition:
+      fill 0.46s ease,
+      stroke 0.46s ease,
+      stop-color 0.46s ease,
+      opacity 0.32s ease;
+  }
+
+  .cabin-pick > li {
+    animation: reveal-note 0.25s ease-out both;
+  }
+
+  .site-head[data-ready] :is(.dock-nav, .toc),
+  .toc[open] nav {
+    animation: reveal-dock 0.24s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .site-dock {
+    interpolate-size: allow-keywords;
+    transition:
+      width 0.23s cubic-bezier(0.16, 1, 0.3, 1),
+      border-radius 0.2s ease;
+  }
+
+  .toc-progress circle:last-child {
+    transition: stroke-dashoffset 0.16s linear;
+  }
+
+  .toc-caret {
+    transition: transform 0.24s ease;
+  }
+
+  ::view-transition {
+    @apply pointer-events-none;
+  }
+
+  ::view-transition-old(root) {
+    animation: page-out 0.14s ease-in both;
+  }
+
+  ::view-transition-new(root) {
+    animation: page-in 0.24s ease-out both;
+  }
+
+  :root[data-theme-transition] .cabin svg * {
+    transition: none;
+  }
+
+  :root[data-theme-transition]::view-transition-image-pair(root) {
+    isolation: auto;
+  }
+
+  :root[data-theme-transition]::view-transition-old(root),
+  :root[data-theme-transition]::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+  }
+
+  :root[data-theme-transition='dark']::view-transition-old(root) {
+    z-index: 1;
+  }
+
+  :root[data-theme-transition='light'] {
+    view-transition-name: none;
+  }
+
+  :root[data-theme-transition='light'] body {
+    @apply bg-paper;
+    view-transition-name: theme-page;
+  }
+
+  :root[data-theme-transition='light']::view-transition-group(theme-page),
+  :root[data-theme-transition='light']::view-transition-old(theme-page),
+  :root[data-theme-transition='light']::view-transition-new(theme-page) {
+    animation: none;
+    mix-blend-mode: normal;
+  }
+
+  :root[data-theme-transition='light']::view-transition-new(theme-page) {
+    animation: reveal-light 0.68s cubic-bezier(0.42, 0, 0.36, 1) both;
+  }
+}
+
+@keyframes reveal-note {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes reveal-dock {
+  from {
+    opacity: 0;
+    transform: translateY(-5px) scale(0.98);
+  }
+}
+
+@keyframes page-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+@keyframes reveal-light {
+  from {
+    clip-path: circle(0 at var(--reveal-center));
+  }
+  to {
+    clip-path: circle(var(--reveal-radius) at var(--reveal-center));
+  }
+}

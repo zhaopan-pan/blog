@@ -1,0 +1,175 @@
+.home {
+  width: min(100% - 2 * clamp(23px, 5vw, 48px), 780px);
+  padding-top: clamp(44px, 8vw, 90px);
+}
+
+.home-grid {
+  @apply grid items-start;
+  grid-template-columns: minmax(0, 1fr) minmax(285px, 42%);
+  gap: clamp(18px, 4vw, 48px);
+}
+
+.home-kicker {
+  @apply text-accent;
+  font-size: 0.83rem;
+  font-weight: 650;
+  letter-spacing: 0.15em;
+  margin-bottom: 0.68rem;
+}
+
+.home-intro h1 {
+  @apply font-cabin font-medium;
+  font-size: clamp(2.55rem, 5.6vw, 4.05rem);
+  line-height: 1.06;
+}
+
+.lead {
+  @apply text-muted;
+  font-size: clamp(0.98rem, 2.5vw, 1.11rem);
+  line-height: 1.65;
+  margin-top: 0.8rem;
+}
+
+.home-copy {
+  @apply text-body;
+  max-width: 33em;
+  line-height: 1.92;
+  margin-top: 1.45rem;
+}
+
+.cabin {
+  @apply rounded-[14px] border border-line bg-wash;
+  margin-top: 0.4rem;
+}
+
+.house-art {
+  @apply block h-auto w-full overflow-hidden;
+  border-radius: 13px 13px 0 0;
+}
+
+.sky-top {
+  stop-color: light-dark(#cadfd7, #18273c);
+}
+.sky-horizon {
+  stop-color: light-dark(#fae4bc, #526479);
+}
+.far-hills {
+  fill: light-dark(#a8b59b, #485d69);
+}
+.near-hill {
+  fill: light-dark(#7d9975, #344e49);
+}
+.scene-pines {
+  fill: light-dark(#4f755e, #213d3a);
+}
+.scene-trail {
+  stroke: light-dark(#bfc296, #60736a);
+}
+.scene-marks {
+  stroke: light-dark(#618360, #4a6860);
+}
+.scene-window {
+  fill: light-dark(#5e786a, #ffd87b);
+}
+
+.scene-moon,
+.scene-stars {
+  @apply opacity-0;
+}
+
+:root[data-theme='dark'] .scene-sun {
+  @apply opacity-0;
+}
+
+:root[data-theme='dark'] :is(.scene-moon, .scene-stars) {
+  @apply opacity-100;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .scene-sun {
+    @apply opacity-0;
+  }
+
+  :root:not([data-theme='light']) :is(.scene-moon, .scene-stars) {
+    @apply opacity-100;
+  }
+}
+
+.cabin-controls {
+  @apply flex justify-between;
+  gap: 0.35rem;
+  padding: 0.2rem 0.68rem;
+}
+
+.cabin-controls button {
+  @apply inline-flex min-h-[40px] items-center text-ink;
+  gap: 0.36rem;
+  padding: 0 0.19rem;
+  border: 0;
+  background: none;
+  font-size: 0.8rem;
+}
+
+.cabin-controls button:hover {
+  @apply text-accent;
+}
+
+.cabin-controls .icon {
+  @apply size-[15px];
+}
+
+.cabin-pick {
+  @apply m-0 list-none p-0;
+}
+
+.cabin-pick > li {
+  @apply flex items-baseline justify-between border-t border-t-line;
+  gap: 0.65rem;
+  padding: 0.64rem 0.87rem 0.8rem;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.cabin-pick a {
+  @apply text-accent underline underline-offset-[.2em];
+}
+
+.cabin-pick time {
+  @apply text-muted tabular-nums;
+}
+
+.home-copy p + p {
+  margin-top: 0.85rem;
+}
+
+.home-links {
+  @apply flex flex-wrap text-muted;
+  gap: 1.2rem;
+  margin-top: 1.35rem;
+  font-size: 0.86rem;
+}
+
+.home-links a {
+  @apply inline-flex items-center;
+  gap: 0.38rem;
+}
+
+.home-links a:hover {
+  @apply text-accent;
+}
+
+.home-links .icon {
+  @apply size-[15px];
+}
+
+.home-writing {
+  @apply border-t border-t-line;
+  margin-top: 2.8rem;
+  padding-top: 1.32rem;
+}
+
+@media (max-width: 620px) {
+  .home-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

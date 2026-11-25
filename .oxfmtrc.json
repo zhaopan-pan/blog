@@ -1,0 +1,14 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "astro": true,
+  "printWidth": 100,
+  "semi": false,
+  "singleQuote": true,
+  "ignorePatterns": [
+    "**/docs/",
+    "**/dist/",
+    "**/.astro/",
+    "pnpm-lock.yaml",
+    "packages/blog/scripts/migration-baseline.json"
+  ]
+}

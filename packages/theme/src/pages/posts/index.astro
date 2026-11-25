@@ -1,0 +1,7 @@
+---
+import ArchivePage from '../../components/ArchivePage.astro'
+import { getPosts } from '../../lib/content'
+import { sections, themeSite } from '../../lib/config'
+---
+
+<ArchivePage site={themeSite} archive={sections[0]} items={sections} posts={await getPosts()} />

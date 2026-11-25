@@ -1,0 +1,58 @@
+{
+  "name": "@huanwu/blog-theme-cabin",
+  "version": "0.1.0",
+  "description": "Cabin, a static blog theme for Astro",
+  "license": "ISC",
+  "author": "zhaopan",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhaopan-pan/blog.git",
+    "directory": "packages/theme"
+  },
+  "bin": {
+    "cabin": "./src/cli.js"
+  },
+  "files": [
+    "src"
+  ],
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./src/integration.d.ts",
+      "default": "./src/integration.js"
+    },
+    "./copy": "./src/theme-copy.js",
+    "./types": "./src/types.ts"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@astrojs/react": "7.1.9",
+    "@tailwindcss/vite": "4.3.5",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@waline/client": "3.16.2",
+    "astro": "7.4.13",
+    "gray-matter": "4.0.3",
+    "markdown-it": "15.0.3",
+    "markdown-it-anchor": "10.1.0",
+    "markdown-it-container": "4.0.0",
+    "markdown-it-emoji": "3.1.0",
+    "mermaid": "12.3.0",
+    "pagefind": "1.6.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "shiki": "4.6.0",
+    "tailwindcss": "4.3.5",
+    "vite": "8.3.8"
+  },
+  "devDependencies": {
+    "@types/markdown-it-container": "4.0.1",
+    "@types/markdown-it-emoji": "3.0.1",
+    "@types/node": "26.6.6"
+  },
+  "engines": {
+    "node": ">=26.13.1"
+  }
+}

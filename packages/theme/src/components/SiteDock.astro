@@ -1,0 +1,49 @@
+---
+import type { ComponentProps } from 'astro/types'
+import type { ThemeSite } from '../types'
+import { themeCopy } from '../theme-copy.js'
+import ArticleToc from './ArticleToc.astro'
+import Icon from './Icon.astro'
+import Search from './Search.astro'
+
+interface Props {
+  site: ThemeSite
+  current?: string
+  toc?: ComponentProps<typeof ArticleToc>
+}
+
+const { site, current, toc } = Astro.props
+---
+
+<header class="site-head">
+  <div class="site-dock">
+    <nav class="dock-nav" aria-label={themeCopy.nav.primary}>
+      <a
+        class="brand"
+        href="/"
+        aria-label={`${site.name} · ${themeCopy.nav.home}`}
+        aria-current={current === 'home' ? 'page' : undefined}
+      >
+        <Icon name="house" />
+      </a>
+      {site.navigation?.map(({ key, href, label }) => (
+        <a href={href} aria-current={key === current ? 'page' : undefined}>
+          {label}
+        </a>
+      ))}
+      {site.github && (
+        <a class="github-link" href={site.github} aria-label={themeCopy.nav.github}>
+          <Icon name="github" />
+        </a>
+      )}
+    </nav>
+    {toc && <ArticleToc {...toc} />}
+    {site.search && <Search />}
+    <button class="theme-button" type="button" aria-label={themeCopy.nav.toggleTheme}>
+      <Icon name="sun" />
+      <Icon name="moon" />
+    </button>
+  </div>
+</header>
+
+<script src="../scripts/dock.ts"></script>

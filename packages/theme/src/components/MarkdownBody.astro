@@ -1,0 +1,10 @@
+---
+import Mermaid from './Mermaid.astro'
+interface Props {
+  document: { html: string; mermaid?: boolean }
+}
+const { document } = Astro.props
+---
+
+<div class="prose" set:html={document.html} />
+{document.mermaid && <Mermaid />}

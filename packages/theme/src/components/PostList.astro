@@ -1,0 +1,25 @@
+---
+import type { PostSummary } from '../types'
+import PostRows from './PostRows.astro'
+
+interface Props {
+  posts: readonly PostSummary[]
+  language: string
+  archive?: boolean
+}
+const { posts, language, archive = false } = Astro.props
+const groups = archive
+  ? Object.entries(Object.groupBy(posts, (post) => post.date.slice(0, 4))).reverse()
+  : []
+---
+
+{archive ? (
+  groups.map(([year, items]) => (
+    <section class="year">
+      <h2>{year}</h2>
+      <PostRows posts={items!} {language} />
+    </section>
+  ))
+) : (
+  <PostRows {posts} {language} />
+)}

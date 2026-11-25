@@ -1,0 +1,25 @@
+---
+import Site from '../layouts/Site.astro'
+import MarkdownBody from './MarkdownBody.astro'
+import type { PageDocument, ThemeSite } from '../types'
+interface Props {
+  site: ThemeSite
+  document: PageDocument
+  label?: string
+  current?: string
+}
+const { site, document, label = document.title, current } = Astro.props
+---
+
+<Site
+  {site}
+  title={label}
+  canonical={document.href}
+  description={document.description}
+  current={current}
+>
+  <article class="column page" data-pagefind-body>
+    <h1>{label}</h1>
+    <MarkdownBody document={document} />
+  </article>
+</Site>

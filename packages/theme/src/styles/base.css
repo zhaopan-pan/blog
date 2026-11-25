@@ -1,0 +1,124 @@
+:root {
+  @apply bg-paper font-site text-ink;
+  font-synthesis: none;
+  scroll-padding-top: var(--header-height);
+}
+
+* {
+  @apply box-border;
+}
+
+html,
+.toc nav,
+.prose pre,
+.prose table {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scroll-thumb) transparent;
+}
+
+@supports selector(::-webkit-scrollbar) {
+  html,
+  .toc nav,
+  .prose pre,
+  .prose table {
+    scrollbar-width: auto;
+    scrollbar-color: auto;
+  }
+
+  :is(html, .toc nav, .prose pre, .prose table)::-webkit-scrollbar {
+    @apply size-[6px];
+  }
+
+  :is(html, .toc nav, .prose pre, .prose table)::-webkit-scrollbar-thumb {
+    @apply rounded-[10px];
+    background: var(--scroll-thumb);
+  }
+
+  :is(html, .toc nav, .prose pre, .prose table)::-webkit-scrollbar-thumb:hover {
+    background: var(--scroll-hover);
+  }
+
+  :is(html, .toc nav, .prose pre, .prose table)::-webkit-scrollbar-track,
+  :is(html, .toc nav, .prose pre, .prose table)::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+}
+
+body {
+  @apply m-0 flex min-h-svh flex-col;
+}
+
+/* Astro can emit module scripts between the fixed header and main. */
+#main {
+  @apply flex-1;
+  padding-top: var(--header-height);
+}
+
+a {
+  @apply text-inherit no-underline;
+}
+
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+button {
+  @apply cursor-pointer;
+  font: inherit;
+}
+
+.skip {
+  @apply fixed top-2 left-2 z-12 bg-paper p-2;
+  transform: translateY(-160%);
+}
+
+.skip:focus {
+  transform: none;
+}
+
+.column,
+.site-footer {
+  width: min(100% - 2 * clamp(23px, 5vw, 48px), 660px);
+  margin: 0 auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  @apply m-0;
+}
+
+h1 {
+  @apply wrap-anywhere;
+  font-size: clamp(1.95rem, 4.5vw, 2.8rem);
+  line-height: 1.24;
+  font-weight: 730;
+  letter-spacing: -0.04em;
+}
+
+.home-copy a,
+.prose a:not(.header-anchor) {
+  @apply underline decoration-line decoration-1 underline-offset-[.24em];
+}
+
+.home-copy a:hover,
+.prose a:hover {
+  @apply text-accent decoration-current;
+}
+
+.site-footer {
+  @apply flex border-t border-t-line text-muted;
+  margin-top: 4.2rem;
+  padding: 1.1rem 0 1.8rem;
+  gap: 0.55rem;
+  font-size: 0.75rem;
+}
+
+.site-footer a:hover {
+  @apply text-accent;
+}

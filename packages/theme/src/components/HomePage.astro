@@ -1,0 +1,53 @@
+---
+import Site from '../layouts/Site.astro'
+import Cabin from './Cabin'
+import PostList from './PostList.astro'
+import { themeCopy } from '../theme-copy.js'
+import type { PostSummary, ThemeSite } from '../types'
+
+interface Props {
+  site: ThemeSite
+  home: {
+    title: string
+    titleLanguage?: string
+    tagline: string
+    intro: readonly (readonly { text: string; href?: string }[])[]
+  }
+  email?: string
+  archiveHref: string
+  recent: readonly PostSummary[]
+  older: readonly PostSummary[]
+}
+const { site, home, email, archiveHref, recent, older } = Astro.props
+---
+
+<Site {site} title={site.name} canonical="/" current="home">
+  <div class="column home">
+    <div class="home-grid">
+      <header class="home-intro">
+        <p class="home-kicker">{site.name}</p>
+        <h1 lang={home.titleLanguage}>{home.title}</h1>
+        <p class="lead">{home.tagline}</p>
+        <div class="home-copy">
+          {home.intro.map((paragraph) => (
+            <p>{paragraph.map(({ text, href }) => (href ? <a href={href}>{text}</a> : text))}</p>
+          ))}
+        </div>
+        <div class="home-links">
+          {site.github && <a href={site.github}>{themeCopy.nav.github}</a>}
+          {email && <a href={`mailto:${email}`}>{themeCopy.nav.email}</a>}
+        </div>
+      </header>
+      <Cabin posts={older} copy={themeCopy.cabin} client:idle />
+    </div>
+    <section class="home-writing" aria-labelledby="recent">
+      <div class="section-head">
+        <h2 id="recent">{themeCopy.home.recent}</h2>
+        <a href={archiveHref}>
+          {themeCopy.home.allPosts} <span aria-hidden="true">→</span>
+        </a>
+      </div>
+      <PostList posts={recent} language={site.language} />
+    </section>
+  </div>
+</Site>

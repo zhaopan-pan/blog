@@ -1,0 +1,63 @@
+---
+import Site from '../layouts/Site.astro'
+import MarkdownBody from './MarkdownBody.astro'
+import Comments from './Comments.astro'
+import BackToTop from './BackToTop.astro'
+import { themeCopy } from '../theme-copy.js'
+import type { Heading, NavItem, PageDocument, PostSummary, ThemeSite } from '../types'
+
+interface Props {
+  site: ThemeSite
+  post: PageDocument & PostSummary & { author?: string; headings: readonly Heading[] }
+  archive: NavItem
+  tags: readonly { href: string; label: string }[]
+  editHref?: string
+  comments?: { serverURL: string; lang?: string }
+}
+const { site, post, archive, tags, editHref, comments } = Astro.props
+const date = new Intl.DateTimeFormat(site.language, { dateStyle: 'long', timeZone: 'UTC' })
+---
+
+<Site
+  {site}
+  article
+  title={post.title}
+  description={post.description}
+  canonical={post.href}
+  current={archive.key}
+  headings={post.headings}
+>
+  <article class="column article" data-pagefind-body>
+    <header class="post-head">
+      <a class="back" href={archive.href} data-pagefind-ignore>
+        ← {themeCopy.post.archive}
+      </a>
+      <h1 tabindex="-1">{post.title}</h1>
+      <div class="post-meta" data-pagefind-ignore>
+        <time datetime={post.date}>{date.format(new Date(post.date))}</time>
+        {post.author && (
+          <>
+            <span aria-hidden="true">·</span>
+            <span>{post.author}</span>
+          </>
+        )}
+        {tags.map(({ href, label }) => (
+          <a {href}>#{label}</a>
+        ))}
+      </div>
+    </header>
+    <MarkdownBody document={post} />
+    <div class="post-end" data-pagefind-ignore>
+      <a class="back" href={archive.href}>
+        ← {themeCopy.post.returnToArchive}
+      </a>
+      {editHref && (
+        <a class="back edit-source" href={editHref}>
+          {themeCopy.post.edit}
+        </a>
+      )}
+    </div>
+  </article>
+  {comments?.serverURL && <Comments path={post.href} {...comments} />}
+  <BackToTop />
+</Site>

@@ -2,16 +2,9 @@
 .DS_Store
 
 /.vscode
-/node_modules
+node_modules/
 
-/docs/.vuepress/.temp/
-/docs/.vuepress/.cache/
-/docs/.vuepress/dist/
-/docs/.vuepress/config.js
-/docs/.vuepress/templates/.temp/
-
-
-
-/script/deploy.sh
-
+dist/
+.astro/
+*.tgz
 

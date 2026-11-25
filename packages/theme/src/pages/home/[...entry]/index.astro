@@ -1,0 +1,14 @@
+---
+import type { GetStaticPaths } from 'astro'
+import DocumentPage from '../../../components/DocumentPage.astro'
+import { themeSite } from '../../../lib/config'
+import { getDocuments } from '../../../lib/content'
+
+export const getStaticPaths = (async () => {
+  const document = (await getDocuments()).find(({ source }) => source === 'home/index.md')
+  return document ? [{ params: { entry: undefined }, props: { document } }] : []
+}) satisfies GetStaticPaths
+const { document } = Astro.props
+---
+
+<DocumentPage site={themeSite} {document} />

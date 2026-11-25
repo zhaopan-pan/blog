@@ -1,0 +1,22 @@
+---
+import type { GetStaticPaths } from 'astro'
+import DocumentPage from '../components/DocumentPage.astro'
+import { documentLinks, themeSite } from '../lib/config'
+import { getDocuments } from '../lib/content'
+
+export const getStaticPaths = (async () =>
+  (await getDocuments())
+    .filter(({ source }) => Object.hasOwn(documentLinks, source))
+    .map((document) => ({
+      params: { document: document.source.slice(0, -'.md'.length) },
+      props: { document, link: documentLinks[document.source as keyof typeof documentLinks] },
+    }))) satisfies GetStaticPaths
+const { document, link } = Astro.props
+---
+
+<DocumentPage
+  site={themeSite}
+  {document}
+  current={link.key}
+  label={link.key === 'talks' ? link.label : undefined}
+/>

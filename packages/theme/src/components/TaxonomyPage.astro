@@ -1,0 +1,46 @@
+---
+import Site from '../layouts/Site.astro'
+import PostList from './PostList.astro'
+import SectionNav from './SectionNav.astro'
+import { themeCopy } from '../theme-copy.js'
+import type { NavItem, PostSummary, ThemeSite } from '../types'
+
+type Entry = { label: string; href: string; posts: readonly PostSummary[] }
+type Props = {
+  site: ThemeSite
+  section: NavItem
+  current: string
+} & ({ entry: Entry } | { items: readonly NavItem[]; entries: readonly Entry[] })
+
+const { site, section, current } = Astro.props
+const title = 'entry' in Astro.props ? Astro.props.entry.label : section.label
+const canonical = 'entry' in Astro.props ? Astro.props.entry.href : section.href
+---
+
+<Site {site} {title} {canonical} {current}>
+  <div class="column archive">
+    {'entry' in Astro.props ? (
+      <>
+        <a class="back" href={section.href}>
+          ← {section.label}
+        </a>
+        <h1>{title}</h1>
+        <PostList posts={Astro.props.entry.posts} language={site.language} archive />
+      </>
+    ) : (
+      <>
+        <SectionNav items={Astro.props.items} active={section.key} />
+        <ul class="index-list">
+          {Astro.props.entries.map(({ label, href, posts }) => (
+            <li>
+              <a {href}>
+                <span>{label}</span>
+                <span>{themeCopy.archive.count(posts.length)}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </>
+    )}
+  </div>
+</Site>

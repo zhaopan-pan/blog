@@ -1,0 +1,9 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "ignorePatterns": ["**/docs/**", "**/dist/**", "**/.astro/**"],
+  "categories": { "correctness": "error" },
+  "overrides": [
+    { "files": ["packages/*/src/**/*.{astro,ts,tsx}"], "env": { "browser": true, "node": true } },
+    { "files": ["packages/blog/public/service-worker.js"], "env": { "serviceworker": true } }
+  ]
+}

@@ -1,0 +1,15 @@
+---
+import type { NavItem } from '../types'
+import { themeCopy } from '../theme-copy.js'
+interface Props {
+  items: readonly NavItem[]
+  active: string
+}
+const { items, active } = Astro.props
+---
+
+<nav class="section-nav" aria-label={themeCopy.nav.browse}>
+  {items.map(({ key, label, href }) =>
+    key === active ? <h1>{label}</h1> : <a href={href}>{label}</a>,
+  )}
+</nav>

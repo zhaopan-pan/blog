@@ -1,0 +1,13 @@
+---
+import TaxonomyPage from '../../components/TaxonomyPage.astro'
+import { getTaxonomy } from '../../lib/site'
+import { sections, themeSite } from '../../lib/config'
+---
+
+<TaxonomyPage
+  site={themeSite}
+  section={sections[1]}
+  current="categories"
+  items={sections}
+  entries={await getTaxonomy('category')}
+/>

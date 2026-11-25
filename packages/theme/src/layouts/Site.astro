@@ -1,0 +1,49 @@
+---
+import SiteDock from '../components/SiteDock.astro'
+import SiteHead from '../components/SiteHead.astro'
+import type { Heading, ThemeSite } from '../types'
+import { themeCopy } from '../theme-copy.js'
+import '../styles/site.css'
+
+interface Props {
+  site: ThemeSite
+  title: string
+  description?: string
+  current?: string
+  headings?: readonly Heading[]
+  canonical?: string
+  article?: boolean
+}
+
+const { site, title, description, current, headings = [], canonical, article = false } = Astro.props
+---
+
+<!doctype html>
+<html
+  lang={site.language}
+  data-theme-storage-key={site.themeStorageKey ?? `cabin-theme:${site.name}`}
+>
+  <head>
+    <SiteHead {site} {title} {description} {canonical} isHome={current === 'home'} {article} />
+  </head>
+  <body>
+    <a class="skip" href="#main">
+      {themeCopy.nav.skip}
+    </a>
+    <SiteDock {site} {current} toc={headings.length > 0 ? { title, headings } : undefined} />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <a href="/">{site.name}</a>
+      {site.footerLink && (
+        <>
+          <span aria-hidden="true">·</span>
+          <a href={site.footerLink.href} target="_blank" rel="noopener noreferrer">
+            {site.footerLink.label}
+          </a>
+        </>
+      )}
+    </footer>
+  </body>
+</html>

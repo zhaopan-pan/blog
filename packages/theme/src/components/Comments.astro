@@ -1,0 +1,84 @@
+---
+import { themeCopy } from '../theme-copy.js'
+
+interface Props {
+  path: string
+  serverURL: string
+  lang?: string
+}
+const { path, serverURL, lang } = Astro.props
+---
+
+<section
+  class="column post-comments"
+  aria-labelledby="comments-title"
+  data-comment-path={path}
+  data-server-url={serverURL}
+  data-lang={lang}
+>
+  <h2 id="comments-title">{themeCopy.comments.title}</h2>
+  <div class="comments-view">
+    <span
+      class="waline-pageview-count"
+      aria-label={themeCopy.comments.views}
+      data-prefix={`${themeCopy.comments.viewPrefix} `}
+    ></span>
+  </div>
+  <div id="waline"></div>
+  <p class="comments-error" role="status" data-error={themeCopy.comments.error}></p>
+</section>
+
+<script>
+  const section = document.querySelector<HTMLElement>('[data-comment-path]')!
+  const mount = section.querySelector<HTMLElement>('#waline')!
+
+  async function loadComments() {
+    try {
+      const [{ init }] = await Promise.all([
+        import('@waline/client'),
+        import('@waline/client/style'),
+      ])
+      init({
+        el: mount,
+        serverURL: section.dataset.serverUrl!,
+        path: section.dataset.commentPath,
+        lang: section.dataset.lang,
+        dark: 'html[data-theme="dark"]',
+        pageview: '.waline-pageview-count',
+      })
+    } catch (error) {
+      const message = section.querySelector<HTMLElement>('.comments-error')!
+      message.textContent = message.dataset.error!
+      console.error('Waline initialization failed', error)
+    }
+  }
+
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (!entry.isIntersecting) return
+      observer.disconnect()
+      void loadComments()
+    },
+    { rootMargin: '280px' },
+  )
+  observer.observe(section)
+</script>
+
+<style>
+  .post-comments {
+    margin-top: 3rem;
+    padding-top: 1.4rem;
+    border-top: 1px solid var(--line);
+  }
+  .post-comments h2 {
+    font-size: 1.1rem;
+  }
+  .comments-view,
+  .comments-error {
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  .waline-pageview-count:not(:empty)::before {
+    content: attr(data-prefix);
+  }
+</style>

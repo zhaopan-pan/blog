@@ -1,0 +1,26 @@
+---
+import type { PostSummary } from '../types'
+
+interface Props {
+  posts: readonly PostSummary[]
+  language: string
+}
+
+const { posts, language } = Astro.props
+const dateLabel = new Intl.DateTimeFormat(language, {
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'UTC',
+})
+---
+
+<ul class="entries">
+  {posts.map(({ href, title, date }) => (
+    <li>
+      <a href={href}>
+        <span>{title}</span>
+        <time datetime={date}>{dateLabel.format(new Date(date))}</time>
+      </a>
+    </li>
+  ))}
+</ul>

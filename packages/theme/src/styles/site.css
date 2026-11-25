@@ -1,0 +1,16 @@
+@layer theme, base, components, utilities;
+
+/* No Preflight: retain browser defaults and third-party widget styles. */
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities) source(none);
+
+/* Keep the site rules unlayered so their cascade with component styles is unchanged. */
+@import './theme.css';
+@import './base.css';
+@import './dock.css';
+@import './home.css';
+@import './writing.css';
+@import './markdown.css';
+@import './motion.css';
+
+@source "../";

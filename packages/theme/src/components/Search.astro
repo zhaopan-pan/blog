@@ -1,0 +1,89 @@
+---
+import { themeCopy } from '../theme-copy.js'
+const { search } = themeCopy
+---
+
+<div class="dock-search">
+  <button
+    class="search-trigger"
+    type="button"
+    aria-label={search.label}
+    aria-haspopup="dialog"
+    aria-keyshortcuts="Control+K Meta+K"
+    title={search.shortcut}
+  >
+    <svg
+      viewBox="0 0 24 24"
+      width="18"
+      height="18"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.5"
+      aria-hidden="true"
+    >
+      <circle cx="10.8" cy="10.8" r="5.8" />
+      <path d="m15 15 4 4" stroke-linecap="round" />
+    </svg>
+  </button>
+  <span
+    class="search-status"
+    role="status"
+    data-preview={search.preview}
+    data-loading={search.loading}
+    data-error={search.error}
+  ></span>
+</div>
+
+<!-- Pagefind 1.6.0's worker cannot resolve its root-relative index URLs. -->
+<pagefind-config no-worker></pagefind-config>
+<pagefind-modal></pagefind-modal>
+
+<script src="../scripts/search.ts"></script>
+
+<style is:global>
+  pagefind-modal {
+    --pf-background: var(--paper);
+    --pf-text: var(--ink);
+    --pf-text-secondary: var(--body);
+    --pf-text-muted: var(--muted);
+    --pf-border: var(--line);
+    --pf-hover: var(--wash);
+    --pf-mark: var(--accent);
+    --pf-outline-focus: var(--accent);
+  }
+  .dock-search {
+    position: relative;
+  }
+  .site-head[data-reading] .dock-search {
+    display: none;
+  }
+  .search-trigger {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 31px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--glass-muted);
+  }
+  .search-trigger:is(:hover, :focus-visible) {
+    background: var(--glass-hover);
+  }
+  .search-status:not(:empty) {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    padding: 0.4rem 0.65rem;
+    border-radius: 8px;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 0.8rem;
+    white-space: nowrap;
+  }
+  @media (max-width: 345px) {
+    .search-trigger {
+      width: 24px;
+    }
+  }
+</style>

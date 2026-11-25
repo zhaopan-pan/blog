@@ -1,0 +1,14 @@
+---
+import type { GetStaticPaths } from 'astro'
+import TaxonomyPage from '../../../components/TaxonomyPage.astro'
+import { getTaxonomy } from '../../../lib/site'
+import { sections, themeSite } from '../../../lib/config'
+export const getStaticPaths = (async () =>
+  (await getTaxonomy('category')).map((entry) => ({
+    params: { name: entry.key },
+    props: { entry },
+  }))) satisfies GetStaticPaths
+const { entry } = Astro.props
+---
+
+<TaxonomyPage site={themeSite} section={sections[1]} current="categories" {entry} />

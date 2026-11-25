@@ -1,0 +1,23 @@
+---
+import Site from '../layouts/Site.astro'
+import PostList from './PostList.astro'
+import SectionNav from './SectionNav.astro'
+import { themeCopy } from '../theme-copy.js'
+import type { NavItem, PostSummary, ThemeSite } from '../types'
+
+interface Props {
+  site: ThemeSite
+  archive: NavItem
+  items: readonly NavItem[]
+  posts: readonly PostSummary[]
+}
+const { site, archive, items, posts } = Astro.props
+---
+
+<Site {site} title={archive.label} canonical={archive.href} current={archive.key}>
+  <div class="column archive">
+    <SectionNav {items} active={archive.key} />
+    <p class="page-note">{themeCopy.archive.description(posts.length)}</p>
+    <PostList {posts} language={site.language} archive />
+  </div>
+</Site>

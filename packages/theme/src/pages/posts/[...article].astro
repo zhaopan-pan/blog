@@ -1,0 +1,30 @@
+---
+import type { GetStaticPaths } from 'astro'
+import ArticlePage from '../../components/ArticlePage.astro'
+import { getPosts } from '../../lib/content'
+import { taxonomyHref } from '../../lib/site'
+import { sections, siteConfig, themeSite } from '../../lib/config'
+
+export const getStaticPaths = (async () =>
+  (await getPosts()).map((post) => ({
+    params: { article: decodeURI(post.href.slice('/posts/'.length, -'.html'.length)) },
+    props: { post },
+  }))) satisfies GetStaticPaths
+const { post } = Astro.props
+const tags = post.tags.map((label) => ({ label, href: taxonomyHref('tag', label) }))
+const editHref = siteConfig.editBase
+  ? new URL(
+      post.source.split('/').map(encodeURIComponent).join('/'),
+      `${siteConfig.editBase.replace(/\/$/, '')}/`,
+    ).href
+  : undefined
+---
+
+<ArticlePage
+  site={themeSite}
+  {post}
+  archive={sections[0]}
+  {tags}
+  {editHref}
+  comments={siteConfig.comments}
+/>

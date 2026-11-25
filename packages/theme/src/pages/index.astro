@@ -1,0 +1,21 @@
+---
+import HomePage from '../components/HomePage.astro'
+import { getPosts } from '../lib/content'
+import { sections, siteConfig, themeSite } from '../lib/config'
+
+const { email, home } = siteConfig
+const posts = await getPosts()
+const older = posts
+  .slice(home.recentCount)
+  .filter(({ date }) => !home.cabinArchiveBefore || date < home.cabinArchiveBefore)
+  .map(({ href, title, date }) => ({ href, title, date }))
+---
+
+<HomePage
+  site={themeSite}
+  {home}
+  {email}
+  archiveHref={sections[0].href}
+  recent={posts.slice(0, home.recentCount)}
+  {older}
+/>

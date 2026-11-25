@@ -1,0 +1,54 @@
+---
+import type { Heading } from '../types'
+import { themeCopy } from '../theme-copy.js'
+import Icon from './Icon.astro'
+
+interface Props {
+  title: string
+  headings: readonly Heading[]
+}
+
+const { title, headings } = Astro.props
+const tocId = 'post-toc'
+---
+
+<button
+  class="toc-open"
+  type="button"
+  aria-label={themeCopy.post.openToc}
+  aria-controls={tocId}
+  hidden
+>
+  <Icon name="outline" />
+</button>
+<details class="toc" id={tocId}>
+  <summary aria-label={`${themeCopy.post.toc}：${title}`}>
+    <svg
+      class="toc-progress"
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke="currentColor"
+      aria-hidden="true"
+    >
+      <circle cx="10" cy="10" r="7.5" />
+      <circle cx="10" cy="10" r="7.5" pathLength="1" />
+    </svg>
+    <span class="toc-title">{title}</span>
+    <svg class="toc-caret" viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true">
+      <path d="m4 6 4 4 4-4" />
+    </svg>
+  </summary>
+  <nav aria-label={themeCopy.post.toc}>
+    <ol>
+      {headings.map(({ id, title: label, level }) => (
+        <li class={`level-${level}`}>
+          <a href={`#${encodeURIComponent(id)}`} title={label}>
+            {label}
+          </a>
+        </li>
+      ))}
+    </ol>
+  </nav>
+</details>
+
+<script src="../scripts/article-toc.ts"></script>

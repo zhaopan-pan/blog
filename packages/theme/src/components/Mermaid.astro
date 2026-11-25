@@ -1,0 +1,77 @@
+<script>
+  const nodes = [...document.querySelectorAll<HTMLPreElement>('pre.mermaid-source')]
+  const media = matchMedia('(prefers-color-scheme: dark)')
+  const root = document.documentElement
+  const dark = () => (root.dataset.theme ? root.dataset.theme === 'dark' : media.matches)
+  const rendered = new Map<HTMLPreElement, { source: string; output: HTMLElement }>()
+  let library: Promise<typeof import('mermaid')> | undefined
+  let sequence = 0
+  let queue = Promise.resolve()
+
+  function renderDiagrams(targets: HTMLPreElement[]) {
+    queue = queue
+      .then(async () => {
+        const { default: mermaid } = await (library ??= import('mermaid'))
+        mermaid.initialize({
+          startOnLoad: false,
+          securityLevel: 'strict',
+          theme: dark() ? 'dark' : 'default',
+        })
+        for (const node of targets) {
+          let diagram = rendered.get(node)
+          if (!diagram) {
+            const output = document.createElement('div')
+            output.className = 'mermaid-diagram'
+            diagram = { source: node.textContent ?? '', output }
+          }
+          try {
+            const { svg } = await mermaid.render(`blog-diagram-${++sequence}`, diagram.source)
+            diagram.output.innerHTML = svg
+            if (!diagram.output.isConnected) node.replaceWith(diagram.output)
+            rendered.set(node, diagram)
+          } catch (error) {
+            console.error('Unable to render Mermaid diagram', error)
+          }
+        }
+      })
+      .catch((error) => {
+        console.error('Mermaid initialization failed', error)
+      })
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      const visible: HTMLPreElement[] = []
+      for (const { isIntersecting, target } of entries) {
+        if (!isIntersecting) continue
+        observer.unobserve(target)
+        visible.push(target as HTMLPreElement)
+      }
+      if (visible.length) renderDiagrams(visible)
+    },
+    { rootMargin: '220px' },
+  )
+  nodes.forEach((node) => observer.observe(node))
+
+  let wasDark = dark()
+  const onTheme = () => {
+    const isDark = dark()
+    if (wasDark === isDark) return
+    wasDark = isDark
+    if (rendered.size) renderDiagrams([...rendered.keys()])
+  }
+  new MutationObserver(onTheme).observe(root, { attributes: true, attributeFilter: ['data-theme'] })
+  media.addEventListener('change', onTheme)
+</script>
+
+<style is:global>
+  .mermaid-diagram {
+    overflow-x: auto;
+    padding-block: 0.6rem;
+    text-align: center;
+  }
+  .mermaid-diagram svg {
+    max-width: 100%;
+    height: auto;
+  }
+</style>

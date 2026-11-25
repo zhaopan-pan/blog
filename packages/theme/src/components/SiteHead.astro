@@ -1,0 +1,52 @@
+---
+import type { ThemeSite } from '../types'
+
+interface Props {
+  site: ThemeSite
+  title: string
+  description?: string
+  canonical?: string
+  isHome: boolean
+  article: boolean
+}
+
+const { site, title, description = site.description, canonical, isHome, article } = Astro.props
+const { name, seo, socialLocale, icons } = site
+const origin = Astro.site ?? new URL(site.url)
+const url = canonical ? new URL(canonical, origin) : undefined
+const pageTitle = isHome || title === name ? title : `${title} · ${name}`
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+{Object.entries(seo?.verification ?? {}).map(([name, content]) => (
+  <meta {name} {content} />
+))}
+<title>{pageTitle}</title>
+<meta name="description" content={description} />
+{seo?.keywords?.length ? <meta name="keywords" content={seo.keywords.join(',')} /> : null}
+{url ? <link rel="canonical" href={url.href} /> : <meta name="robots" content="noindex" />}
+{socialLocale && <meta property="og:locale" content={socialLocale} />}
+<meta property="og:type" content={article ? 'article' : 'website'} />
+<meta property="og:site_name" content={name} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+{url && <meta property="og:url" content={url.href} />}
+{seo?.image && <meta property="og:image" content={new URL(seo.image, origin).href} />}
+<meta name="twitter:card" content="summary" />
+{icons?.favicon && <link rel="icon" href={icons.favicon} />}
+{icons?.appleTouch && <link rel="apple-touch-icon" href={icons.appleTouch} />}
+{icons?.manifest && <link rel="manifest" href={icons.manifest} />}
+<meta name="theme-color" content="#fcfcfb" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#171b18" media="(prefers-color-scheme: dark)" />
+<script is:inline>
+  // Apply the saved preference before first paint and before the bundled module runs.
+  try {
+    const { dataset } = document.documentElement
+    const theme = localStorage.getItem(dataset.themeStorageKey)
+    if (theme === 'light' || theme === 'dark') dataset.theme = theme
+  } catch {
+    /* Use the system preference when storage is unavailable. */
+  }
+</script>
+<script src="../scripts/theme.ts"></script>
