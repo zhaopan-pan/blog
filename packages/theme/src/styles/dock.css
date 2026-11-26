@@ -5,14 +5,21 @@
 
 .site-dock {
   --dock-radius: 21px;
-  --dock-fill: light-dark(rgb(248 250 247 / 0.32), rgb(34 40 36 / 0.44));
-  --dock-blur: 5px;
+  --glass-background: light-dark(rgb(248 250 247 / 0.32), rgb(34 40 36 / 0.44));
+  --glass-blur: 5px;
   --glass-rim: light-dark(rgb(38 54 43 / 0.14), rgb(216 235 221 / 0.09));
   --glass-shine: light-dark(rgb(255 255 255 / 0.55), rgb(232 250 238 / 0.1));
   @apply pointer-events-auto relative z-0 flex w-fit items-center p-[5px];
   border-radius: var(--dock-radius);
   max-width: calc(100vw - 24px);
   -webkit-tap-highlight-color: transparent;
+}
+
+.back-to-top {
+  --glass-background:
+    linear-gradient(light-dark(rgb(255 255 255 / 0.32), rgb(225 246 231 / 0.09)), transparent 44px),
+    light-dark(rgb(248 250 247 / 0.6), rgb(34 40 36 / 0.7));
+  --glass-blur: 16px;
 }
 
 .site-dock,
@@ -32,24 +39,17 @@
 }
 
 @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .site-dock {
-    background: var(--dock-fill);
-    -webkit-backdrop-filter: blur(var(--dock-blur)) saturate(1.3);
-    backdrop-filter: blur(var(--dock-blur)) saturate(1.3);
-  }
-
+  .site-dock,
   .back-to-top {
-    background: linear-gradient(var(--glass-glint), transparent 44px), var(--glass-fill);
-    -webkit-backdrop-filter: blur(16px) saturate(1.3);
-    backdrop-filter: blur(16px) saturate(1.3);
+    background: var(--glass-background);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.3);
+    backdrop-filter: blur(var(--glass-blur)) saturate(1.3);
   }
 }
 
-@supports (backdrop-filter: url('#dock-refraction')) {
-  /* One continuous surface; the displacement map eases to zero inside the bevel. */
-  .site-dock:where([data-refracting]:not(:has(.toc[open]))) {
-    backdrop-filter: url('#dock-refraction') blur(2px) saturate(1.3);
-  }
+/* The script sets this only after a supported browser has a displacement map. */
+.site-dock:where([data-refracting]:not(:has(.toc[open]))) {
+  backdrop-filter: url('#dock-refraction') blur(2px) saturate(1.3);
 }
 
 @media (forced-colors: active) {
@@ -68,9 +68,9 @@
     border-radius: inherit;
     pointer-events: none;
     background: radial-gradient(
-      ellipse 104px 54px at var(--dock-light-x, 50%) var(--dock-light-y, 50%),
-      var(--glass-reflection),
-      var(--glass-refraction) 56%,
+      ellipse 104px 54px at var(--dock-light),
+      light-dark(#fff, rgb(244 255 250 / 0.8)),
+      light-dark(rgb(78 121 108 / 0.44), rgb(153 198 211 / 0.38)) 56%,
       transparent
     );
     mask:
@@ -191,8 +191,8 @@
 
 .site-head[data-reading] .site-dock:has(.toc[open]) {
   --dock-radius: 23px;
-  --dock-fill: var(--glass-panel-fill);
-  --dock-blur: 12px;
+  --glass-background: light-dark(rgb(248 250 247 / 0.85), rgb(35 41 37 / 0.88));
+  --glass-blur: 12px;
   width: min(400px, calc(100vw - 24px));
 }
 

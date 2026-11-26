@@ -53,6 +53,8 @@
         mermaid.initialize({
           startOnLoad: false,
           securityLevel: 'strict',
+          // SVG labels wrap during layout without relying on foreignObject text measurements.
+          htmlLabels: false,
           theme: dark() ? 'dark' : 'default',
         })
         for (const node of targets) {

@@ -6,11 +6,11 @@ toc: false
 ---
 
 ### 🙋‍♂️ 我是谁？
-我叫幻无，是一名全栈开发者。目前主要专注于客户端开发、前端工程化、Agent 开发提效等方面，也负责团队的开发规范制定和日常管理工作。
+我叫幻无，一名全栈开发者。目前主要专注于客户端开发、前端工程化、Agent 开发提效等方面，也负责团队的开发规范制定和日常管理工作。
 
-过去的开发工作中，也用过 React、TypeScript、webpack、Redux、Taro 和 Ant Design。
+过去的开发工作中，也熟悉 React、TypeScript、webpack、Redux、Taro 和 Ant Design。后端框架方面，使用过 Express、Koa、Egg.js、NestJS、springBoot 等写过一些后端服务。
 
-我给 VuePress 做过一套[开源主题](https://github.com/zhaopan-pan/vuepress-theme-zp)，也给开源项目提过 PR。
+给 VuePress 做过一套[开源主题](https://github.com/zhaopan-pan/vuepress-theme-zp)，也给开源项目提过 PR。
 
 ### 👨‍💻 ‍爱好
 

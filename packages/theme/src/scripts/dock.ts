@@ -32,9 +32,8 @@ function setupReflection(dock: HTMLElement) {
   function paint() {
     frame = undefined
     const { left, top } = dock.getBoundingClientRect()
-    dock.style.setProperty('--dock-light-x', `${x - left}px`)
-    dock.style.setProperty('--dock-light-y', `${y - top}px`)
-    dock.toggleAttribute('data-reflecting', true)
+    dock.style.setProperty('--dock-light', `${x - left}px ${y - top}px`)
+    dock.setAttribute('data-reflecting', '')
   }
 
   function point(event: PointerEvent) {
@@ -62,8 +61,12 @@ function setupRefraction(dock: HTMLElement, map: SVGFEImageElement) {
   const canvas = document.createElement('canvas')
   const context = canvas.getContext('2d')
   if (!context) return
+  const toc = dock.querySelector('details.toc')
+  const channelScale = 255 / 16 // SVG displacement filter scale
+  let lastRadius = 0
 
   new ResizeObserver(([entry]) => {
+    if (toc?.open) return // The expanded panel only uses blur.
     const { inlineSize, blockSize } = entry.borderBoxSize[0]!
     const width = Math.round(inlineSize)
     const height = Math.round(blockSize)
@@ -73,13 +76,14 @@ function setupRefraction(dock: HTMLElement, map: SVGFEImageElement) {
       height / 2,
     )
     if (!width || !height || !radius) return
+    if (width === canvas.width && height === canvas.height && radius === lastRadius) return
+    lastRadius = radius
     canvas.width = width
     canvas.height = height
     const image = context.createImageData(width, height)
     const { data } = image
     const cx = width / 2
     const cy = height / 2
-    const channelScale = 255 / 16 // SVG displacement filter scale
 
     // Encode the inward surface normal in R/G, tapering smoothly into the center.
     for (let y = 0, i = 0; y < height; y++) {
