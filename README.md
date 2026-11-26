@@ -63,16 +63,20 @@ TypeScript 公共选项放在根目录的 [`tsconfig.base.json`](tsconfig.base.j
 
 推送到 `master` 后，[发布工作流](.github/workflows/blog-image.yml) 构建站点、执行迁移校验并对容器做 HTTP 验收。通过后向 GHCR 发布 `ghcr.io/zhaopan-pan/blog:production` 和不可变的 `ghcr.io/zhaopan-pan/blog:sha-<完整提交 SHA>`，同时支持 `linux/amd64` 和 `linux/arm64`。工作流不连接 NAS，也不直接替换线上容器。
 
-在 NAS 的 Docker 项目中使用 [`deploy/compose.yaml`](deploy/compose.yaml)，默认拉取 `production` 标签；需要固定版本或回滚时，在同目录 `.env` 设置 `BLOG_TAG=sha-<完整提交 SHA>`。如 GHCR 镜像是私有的，先用拥有读取该包权限的账号和带 `read:packages` 的 classic PAT 登录 `ghcr.io`，不要把令牌写入 `.env`。
+1. NAS 上的 `blog` 项目使用 [`deploy/compose.yaml`](deploy/compose.yaml)。将 [`deploy/update.sh`](deploy/update.sh) 放在同一个项目目录（默认 `/volume1/docker/blog`）。`.env` 的 `BLOG_TAG` 留空或设为 `production`；固定 `sha-...` 会暂停跟随新版本。
+2. 在绿联 Docker 中单独创建 `blog-updater` 项目，导入或粘贴 [`deploy/compose.updater.yaml`](deploy/compose.updater.yaml)，不要覆盖博客项目。如果博客项目不叫 `blog`，改 `COMPOSE_PROJECT_NAME`；如果目录不同，改 `working_dir` 和目录挂载的两端。已经按此配置运行的 NAS 不需要重新部署更新器。
+3. 启动后先看更新器日志，确认 `blog-blog-1` 到达 `Healthy`（容器名随项目名变化）；约 10 分钟后确认出现第二次执行。绿联 Docker 的全局「按计划更新」可关闭，「更新检测」可保留。不需要 Lucky 或宿主机 cron。
 
-在绿联 Docker 项目的「管理」中开启**镜像更新检测**；如果当前 UGOS 版本提供自动更新开关，可开启它。`pull_policy: always` 只会在 Compose 执行时强制拉取，不会自己定时轮询。没有自动更新开关时，在 NAS 的任务计划中定期执行 [`deploy/update.sh`](deploy/update.sh)：
+`master` 的发布工作流成功推送 `production` 后，更新器在下一轮拉取并应用新镜像。没有新镜像且配置未变时不会重建容器；看到 `Pulled` 或 `Healthy` 只能证明当轮成功，不能单独证明版本发生变化。要确认已部署的提交，可在 NAS 执行：
 
 ```sh
-cd /共享文件夹/docker/blog
-./update.sh
+docker image inspect "$(docker inspect blog-blog-1 --format '{{.Image}}')" \
+  --format '{{index .Config.Labels "org.opencontainers.image.revision"}}'
 ```
 
-在 Compose 文件所在目录手动更新时也执行 `./update.sh`。升级前保留上一个 SHA 标签；回滚时在 `.env` 写入上一版 `sha-...`，再执行相同脚本。首次切换用手机流量验收 HTTPS、旧中文 `.html` 路径、分类目录、HTTP 404、中文搜索和 gzip 响应。
+更新器不开放端口，也不接入网络，但挂载 `docker.sock` 等同于授予宿主机 Docker 管理权限；只运行可信镜像和脚本，并限制博客部署目录的写权限。当前 GHCR 镜像可匿名拉取；若将镜像改为私有，需单独为更新器配置 GHCR 读取凭据，宿主机的登录信息不会自动传入。不要把令牌写进 Compose 或 `.env`。
+
+手动更新可在 NAS 的博客项目目录执行 `sh ./update.sh`。回滚时在 `.env` 把 `BLOG_TAG` 设为上一版的 `sha-<完整提交 SHA>`，再运行同一脚本；改回 `production` 即恢复自动跟随。首次切换用手机流量验收 HTTPS、旧中文 `.html` 路径、分类目录、HTTP 404、中文搜索和 gzip 响应。
 
 正式地址为 `https://zhaopan.me`。Cloudflare Tunnel 将该域名发布到博客 HTTP 后端；博客容器继续只监听 NAS 本机端口，Lucky 的 `nas.zhaopan.site:10443` 可保留作为备用入口。NAS 管理口 `9443` 不动，也不要把 Docker API 暴露到公网。
 

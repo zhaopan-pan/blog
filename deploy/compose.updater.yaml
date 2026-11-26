@@ -1,0 +1,19 @@
+services:
+  updater:
+    image: docker:28-cli
+    restart: unless-stopped
+    network_mode: none
+    working_dir: /volume1/docker/blog
+    environment:
+      COMPOSE_PROJECT_NAME: blog
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /volume1/docker/blog:/volume1/docker/blog:ro
+    entrypoint: ['/bin/sh', '-c']
+    command:
+      - |
+        while :; do
+          date
+          /bin/sh ./update.sh || echo '博客更新失败，下轮重试' >&2
+          sleep 600
+        done
