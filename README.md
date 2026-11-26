@@ -59,34 +59,4 @@ TypeScript 公共选项放在根目录的 [`tsconfig.base.json`](tsconfig.base.j
 
 ## 发布与回滚
 
-### NAS Docker 部署
-
-推送到 `master` 后，[发布工作流](.github/workflows/blog-image.yml) 构建站点、执行迁移校验并对容器做 HTTP 验收。通过后向 GHCR 发布 `ghcr.io/zhaopan-pan/blog:production` 和不可变的 `ghcr.io/zhaopan-pan/blog:sha-<完整提交 SHA>`，同时支持 `linux/amd64` 和 `linux/arm64`。工作流不连接 NAS，也不直接替换线上容器。
-
-1. NAS 上的 `blog` 项目使用 [`deploy/compose.yaml`](deploy/compose.yaml)。将 [`deploy/update.sh`](deploy/update.sh) 放在同一个项目目录（默认 `/volume1/docker/blog`）。`.env` 的 `BLOG_TAG` 留空或设为 `production`；固定 `sha-...` 会暂停跟随新版本。
-2. 在绿联 Docker 中单独创建 `blog-updater` 项目，导入或粘贴 [`deploy/compose.updater.yaml`](deploy/compose.updater.yaml)，不要覆盖博客项目。如果博客项目不叫 `blog`，改 `COMPOSE_PROJECT_NAME`；如果目录不同，改 `working_dir` 和目录挂载的两端。已经按此配置运行的 NAS 不需要重新部署更新器。
-3. 启动后先看更新器日志，确认 `blog-blog-1` 到达 `Healthy`（容器名随项目名变化）；约 10 分钟后确认出现第二次执行。绿联 Docker 的全局「按计划更新」可关闭，「更新检测」可保留。不需要 Lucky 或宿主机 cron。
-
-`master` 的发布工作流成功推送 `production` 后，更新器在下一轮拉取并应用新镜像。没有新镜像且配置未变时不会重建容器；看到 `Pulled` 或 `Healthy` 只能证明当轮成功，不能单独证明版本发生变化。要确认已部署的提交，可在 NAS 执行：
-
-```sh
-docker image inspect "$(docker inspect blog-blog-1 --format '{{.Image}}')" \
-  --format '{{index .Config.Labels "org.opencontainers.image.revision"}}'
-```
-
-更新器不开放端口，也不接入网络，但挂载 `docker.sock` 等同于授予宿主机 Docker 管理权限；只运行可信镜像和脚本，并限制博客部署目录的写权限。当前 GHCR 镜像可匿名拉取；若将镜像改为私有，需单独为更新器配置 GHCR 读取凭据，宿主机的登录信息不会自动传入。不要把令牌写进 Compose 或 `.env`。
-
-手动更新可在 NAS 的博客项目目录执行 `sh ./update.sh`。回滚时在 `.env` 把 `BLOG_TAG` 设为上一版的 `sha-<完整提交 SHA>`，再运行同一脚本；改回 `production` 即恢复自动跟随。首次切换用手机流量验收 HTTPS、旧中文 `.html` 路径、分类目录、HTTP 404、中文搜索和 gzip 响应。
-
-正式地址为 `https://zhaopan.me`。Cloudflare Tunnel 将该域名发布到博客 HTTP 后端；博客容器继续只监听 NAS 本机端口，Lucky 的 `nas.zhaopan.site:10443` 可保留作为备用入口。NAS 管理口 `9443` 不动，也不要把 Docker API 暴露到公网。
-
-### 压缩
-
-Astro/Vite 已在构建时压缩 JS、CSS 等静态资源；HTML、JSON、SVG 等由容器内 Nginx 按请求启用 gzip。运行时压缩优于在构建阶段额外生成 `.gz` 文件：浏览器协商后才传压缩内容，不增加镜像文件数量，也兼容不支持 gzip 的客户端。若通过 Cloudflare Tunnel 访问，Cloudflare 还会对到访客的响应做边缘传输优化；不需要在仓库里预压缩。
-
-### 直接发布静态文件
-
-1. 构建并验证后，把 **`packages/blog/dist/` 的内容**发布到域名根目录。静态服务器须支持原有 `.html` URL 和 `/目录/` 下的 `index.html`，未匹配路径返回 `404.html` 和 HTTP 404；不要加 SPA fallback。
-2. 发布前保留上一版静态产物和服务器配置。切换后抽查首页、中文 `.html` 深链、分类目录、站点地图和旧浏览器缓存。保留根路径 `/service-worker.js`，用于注销旧 VuePress worker，避免旧缓存继续生效。
-3. `dist/pagefind/` 随同一批静态文件一起发布，不需单独重建线上索引。新站不需要 Node.js 服务进程。
-4. 回滚时切回先前的完整静态产物和配置，清理 CDN 缓存。VuePress 构建配置、旧部署脚本和 Algolia 爬虫已移除；历史版本可从 Git 找回。
+见 [部署文档](deploy/README.md)：镜像发布、NAS 定时更新、正式域名与备用入口、验收和回滚。
