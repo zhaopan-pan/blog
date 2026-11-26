@@ -46,4 +46,24 @@ const { site, current, toc } = Astro.props
   </div>
 </header>
 
+<svg width="0" height="0" class="dock-optics" aria-hidden="true">
+  <filter
+    id="dock-refraction"
+    x="0"
+    y="0"
+    width="100%"
+    height="100%"
+    color-interpolation-filters="sRGB"
+  >
+    <feImage result="offsets" preserveAspectRatio="none" />
+    <feDisplacementMap
+      in="SourceGraphic"
+      in2="offsets"
+      scale="16"
+      xChannelSelector="R"
+      yChannelSelector="G"
+    />
+  </filter>
+</svg>
+
 <script src="../scripts/dock.ts"></script>

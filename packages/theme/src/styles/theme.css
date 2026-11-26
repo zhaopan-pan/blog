@@ -29,6 +29,21 @@
   --code: #f3f4f0;
   --scroll-thumb: #e2e6df;
   --scroll-hover: #aab6aa;
+  --glass-fallback: light-dark(#f6f7f5, #262c28);
+  --glass-fill: light-dark(rgb(248 250 247 / 0.6), rgb(34 40 36 / 0.7));
+  --glass-panel-fill: light-dark(rgb(248 250 247 / 0.85), rgb(35 41 37 / 0.88));
+  --glass-rim: light-dark(rgb(38 54 43 / 0.14), rgb(216 235 221 / 0.18));
+  --glass-shine: light-dark(rgb(255 255 255 / 0.95), rgb(232 250 238 / 0.24));
+  --glass-glint: light-dark(rgb(255 255 255 / 0.32), rgb(225 246 231 / 0.09));
+  --glass-reflection: light-dark(#fff, rgb(244 255 250 / 0.8));
+  --glass-refraction: light-dark(rgb(78 121 108 / 0.44), rgb(153 198 211 / 0.38));
+  --glass-contact: light-dark(rgb(23 39 29 / 0.1), rgb(0 0 0 / 0.24));
+  --glass-depth: light-dark(rgb(23 39 29 / 0.1), rgb(0 0 0 / 0.28));
+  --glass-text: light-dark(#202a24, #edf4ef);
+  --glass-muted: light-dark(#3b4e43, #c8d6cc);
+  --glass-hover: light-dark(rgb(36 74 54 / 0.09), rgb(196 234 205 / 0.13));
+  --glass-selected: light-dark(rgb(45 104 71 / 0.14), rgb(179 229 192 / 0.18));
+  --glass-accent: light-dark(#28624d, #a2d5bb);
   --dock-top: 24px;
   --header-height: calc(var(--dock-top) + 52px);
 }

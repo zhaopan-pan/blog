@@ -1,6 +1,6 @@
 ---
 import Site from '../layouts/Site.astro'
-import Cabin from './Cabin'
+import Cabin from './Cabin.astro'
 import PostList from './PostList.astro'
 import { themeCopy } from '../theme-copy.js'
 import type { PostSummary, ThemeSite } from '../types'
@@ -35,7 +35,7 @@ const { site, home, email, archiveHref, recent, older } = Astro.props
           {email && <a href={`mailto:${email}`}>{themeCopy.nav.email}</a>}
         </div>
       </header>
-      <Cabin posts={older} copy={themeCopy.cabin} client:idle />
+      <Cabin posts={older} />
     </div>
     <section class="home-writing" aria-labelledby="recent">
       <div class="section-head">

@@ -12,7 +12,7 @@ const config = {
   github: 'https://github.com/zhaopan-pan',
   email: 'zhaopanhw@foxmail.com',
   editBase: 'https://github.com/zhaopan-pan/blog/edit/master/packages/blog/docs/',
-  footerLink: { label: '豫ICP备2021005196号-1', href: 'https://beian.miit.gov.cn/' },
+  footer: { name: 'Huanwu’s Cabin', language: 'en', copyright: '2019-PRESENT ©huanwu' },
   seo: {
     keywords: ['幻无', '幻无的blog', 'zhaopan', 'zhaopanpan', 'zp', '幻无前端'],
     image: '/image/logo.png',
@@ -30,13 +30,6 @@ const config = {
         {
           text: '你好，我是幻无，是一名全栈开发者。目前主要专注于客户端开发、前端工程化、Agent 开发提效等方面，也负责团队的开发规范和日常管理工作。',
         },
-      ],
-      [
-        { text: '我给 VuePress 做过一套' },
-        { text: '开源主题', href: 'https://github.com/zhaopan-pan/vuepress-theme-zp' },
-        { text: '，也给开源项目提过 PR。不写代码的时候，我喜欢' },
-        { text: '打球和做饭', href: '/about.html' },
-        { text: '。' },
       ],
     ],
     recentCount: 3,

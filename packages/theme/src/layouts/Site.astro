@@ -35,13 +35,13 @@ const { site, title, description, current, headings = [], canonical, article = f
       <slot />
     </main>
     <footer class="site-footer">
-      <a href="/">{site.name}</a>
-      {site.footerLink && (
+      <a href="/" lang={site.footer?.language}>
+        {site.footer?.name ?? site.name}
+      </a>
+      {site.footer?.copyright && (
         <>
           <span aria-hidden="true">·</span>
-          <a href={site.footerLink.href} target="_blank" rel="noopener noreferrer">
-            {site.footerLink.label}
-          </a>
+          <span lang={site.footer.language}>{site.footer.copyright}</span>
         </>
       )}
     </footer>

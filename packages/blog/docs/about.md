@@ -10,6 +10,8 @@ toc: false
 
 过去的开发工作中，也用过 React、TypeScript、webpack、Redux、Taro 和 Ant Design。
 
+我给 VuePress 做过一套[开源主题](https://github.com/zhaopan-pan/vuepress-theme-zp)，也给开源项目提过 PR。
+
 ### 👨‍💻 ‍爱好
 除了码字，做做饭
 

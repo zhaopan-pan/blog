@@ -1,6 +1,6 @@
 # 幻无的小屋
 
-用 Astro 和 Vite 生成静态站点，样式由 Tailwind CSS 4 编译。布局、导航、目录和正文使用 Astro 组件；只有首页小屋交互使用 React 岛屿。
+用 Astro 和 Vite 生成静态站点，样式由 Tailwind CSS 4 编译。布局、导航、目录、正文和首页小屋使用 Astro 组件；小屋的昼夜切换与随机旧文使用原生 DOM 脚本，不需要 React。
 
 仓库使用 pnpm workspace，两个包同在 `packages/` 下：
 
@@ -22,11 +22,7 @@ pnpm verify:migration
 pnpm preview
 ```
 
-`pnpm check` 运行 Oxlint 和 Oxfmt。Oxlint 检查 `.astro` 的 frontmatter 和脚本，模板由 Astro 构建验证。`pnpm format` 可应用格式化；`packages/blog/docs/` 不参与格式化。
-
-TypeScript 公共选项放在根目录的 [`tsconfig.base.json`](tsconfig.base.json)，`packages/blog` 和 `packages/theme` 各自继承并声明检查范围。
-
-`pnpm build` 用 Pagefind 为文章和独立内容页构建中文搜索索引，写入 `packages/blog/dist/pagefind/`。在 `pnpm preview` 中用导航搜索按钮或 `Ctrl/⌘ K` 验证；`pnpm dev` 不生成索引。查询在浏览器内执行，不依赖第三方服务。
+维护约定见 [AGENTS.md](AGENTS.md)。站内搜索由 Pagefind 在构建时生成索引，查询在浏览器内执行，不依赖第三方服务。
 
 ## 站点配置
 
@@ -36,9 +32,7 @@ TypeScript 公共选项放在根目录的 [`tsconfig.base.json`](tsconfig.base.j
 
 ## 内容与目录
 
-- `packages/blog/docs/`：原始 Markdown 和本地图片。文章继续放在包内的 `docs/posts/`，沿用原有 frontmatter。
-- 博客只维护 Cabin 配置、内容和静态资源，不需要 `astro.config.mjs` 或 `src/pages`。`cabin` CLI 使用主题包自带的 Astro 配置；路由、旧站 Markdown 兼容和 Pagefind 构建也由主题维护。
-- `pnpm verify:migration` 对照旧站基线验证原稿和图片哈希、旧 URL、标题锚点以及站内导航和图片引用。持续更新的 `docs/about.md` 不做哈希校验，仍检查其旧 URL 和标题锚点。文章正文不依赖客户端渲染。
+- `packages/blog/docs/`：Markdown 和文章图片；文章放在 `docs/posts/`，沿用原有 frontmatter。
 
 ## 迁移性能对照
 
@@ -52,6 +46,8 @@ TypeScript 公共选项放在根目录的 [`tsconfig.base.json`](tsconfig.base.j
 | 静态产物总大小        |  8.41 MiB | 11.82 MiB |
 
 新版静态目录包含按需加载的 Mermaid 模块，整体变大，但普通文章不加载它。以上不代表线上 LCP 或压缩后的传输量。
+
+移除首页 React 岛屿后，Chromium 移动视口在无交互时不再请求同源外部 JS（改动前约 221 KiB）。小屋交互脚本内联到构建后的首页 HTML。
 
 ## 主题打包
 

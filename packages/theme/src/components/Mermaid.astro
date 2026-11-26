@@ -8,6 +8,44 @@
   let sequence = 0
   let queue = Promise.resolve()
 
+  function luminance(color: string) {
+    // Computed CSS colors for opaque hex, rgb(), hsl() and named fills are serialized as rgb().
+    const rgb = /^rgb\(([\d.]+), ([\d.]+), ([\d.]+)\)$/.exec(color)
+    if (!rgb) return
+    const linear = (value: string) => {
+      const channel = Number(value) / 255
+      return channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4
+    }
+    return 0.2126 * linear(rgb[1]!) + 0.7152 * linear(rgb[2]!) + 0.0722 * linear(rgb[3]!)
+  }
+
+  function improveContrast(output: HTMLElement) {
+    const changes: {
+      label: HTMLElement | SVGTextElement
+      property: 'fill' | 'color'
+      color: string
+    }[] = []
+    for (const node of output.querySelectorAll('svg[aria-roledescription^="flowchart"] .node')) {
+      const shape = node.querySelector(':scope > .label-container, :scope > .outer-path')
+      const label = node.querySelector<HTMLElement | SVGTextElement>(
+        '.label .nodeLabel, .label text',
+      )
+      if (!shape || !label) continue
+      const background = luminance(getComputedStyle(shape).fill)
+      const property = label instanceof SVGElement ? 'fill' : 'color'
+      const foreground = luminance(getComputedStyle(label)[property])
+      if (background === undefined || foreground === undefined) continue
+      const contrast =
+        (Math.max(background, foreground) + 0.05) / (Math.min(background, foreground) + 0.05)
+      if (contrast < 4.5) {
+        const color = background + 0.05 >= Math.sqrt(0.05 * 1.05) ? '#000' : '#fff'
+        changes.push({ label, property, color })
+      }
+    }
+    for (const { label, property, color } of changes)
+      label.style.setProperty(property, color, 'important')
+  }
+
   function renderDiagrams(targets: HTMLPreElement[]) {
     queue = queue
       .then(async () => {
@@ -28,6 +66,7 @@
             const { svg } = await mermaid.render(`blog-diagram-${++sequence}`, diagram.source)
             diagram.output.innerHTML = svg
             if (!diagram.output.isConnected) node.replaceWith(diagram.output)
+            improveContrast(diagram.output)
             rendered.set(node, diagram)
           } catch (error) {
             console.error('Unable to render Mermaid diagram', error)

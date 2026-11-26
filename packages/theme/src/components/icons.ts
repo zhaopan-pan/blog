@@ -5,7 +5,7 @@ export const iconMarkup = {
   sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.4 1.4m11.2 11.2L19 19M5 19l1.4-1.4M17.6 6.4 19 5"/>',
   moon: '<path d="M20.9 13.2A9 9 0 0 1 10.8 3.1 9 9 0 1 0 20.9 13.2Z"/>',
   arrow: '<path d="M5 12h14m-5-5 5 5-5 5"/>',
-  outline: '<path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/>',
+  tocLines: '<path d="M5 7h14M5 12h10M5 17h12"/>',
 } as const
 
 export type IconName = keyof typeof iconMarkup

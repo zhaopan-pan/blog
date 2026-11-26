@@ -14,6 +14,8 @@ function setupToc(toc: HTMLDetailsElement) {
     const heading = document.getElementById(decodeURIComponent(link.hash.slice(1)))
     if (heading) sections.push({ heading, link })
   }
+  const firstHeading = sections[0]?.heading
+  const scrolling = document.scrollingElement ?? document.documentElement
   let current: HTMLAnchorElement | undefined
   let frame: number | undefined
   let openedFromDock = false
@@ -42,22 +44,31 @@ function setupToc(toc: HTMLDetailsElement) {
     const articleBottom = article.getBoundingClientRect().bottom
     const reading = scrollY > 250 && articleBottom > innerHeight + 80
     setReading(reading || openedFromDock)
-    if (!reading && !openedFromDock) {
-      toc.open = false
-      return
-    }
+    if (!reading && !openedFromDock) toc.open = false
 
     const distance = Math.max(1, scrollY + articleBottom - innerHeight)
     ring.style.strokeDashoffset = String(1 - Math.min(1, Math.max(0, scrollY / distance)))
     let low = 0
     let high = sections.length
-    const marker = summary.getBoundingClientRect().bottom + 36
+    // Match native fragment scrolling, including the heading's scroll margin and rounding.
+    const padding = parseFloat(getComputedStyle(scrolling).scrollPaddingTop) || 0
+    const margin = firstHeading ? parseFloat(getComputedStyle(firstHeading).scrollMarginTop) : 0
+    const marker = padding + margin + 2
     while (low < high) {
       const mid = (low + high) >>> 1
       if (sections[mid]!.heading.getBoundingClientRect().top <= marker) low = mid + 1
       else high = mid
     }
-    const next = sections[low - 1]?.link
+    // Near the end, native fragment scrolling can stop before a heading reaches the marker.
+    const fragment = location.hash
+    const clamped =
+      fragment && scrolling.scrollHeight - scrolling.clientHeight - scrollY <= 1
+        ? sections.find(
+            ({ heading, link }) =>
+              link.hash === fragment && heading.getBoundingClientRect().top > marker,
+          )
+        : undefined
+    const next = clamped?.link ?? sections[low - 1]?.link
     if (next !== current) {
       current?.removeAttribute('aria-current')
       next?.setAttribute('aria-current', 'location')
@@ -120,7 +131,9 @@ function setupToc(toc: HTMLDetailsElement) {
   })
   window.addEventListener('scroll', schedule, { passive: true })
   window.addEventListener('resize', schedule)
+  window.addEventListener('hashchange', schedule)
   window.addEventListener('pageshow', schedule)
+  new ResizeObserver(schedule).observe(article)
   opener.hidden = false
   update()
   header.dataset.ready = ''

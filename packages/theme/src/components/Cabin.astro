@@ -1,0 +1,92 @@
+---
+import Icon from './Icon.astro'
+import { themeCopy } from '../theme-copy.js'
+import type { PostSummary } from '../types'
+
+interface Props {
+  posts: readonly PostSummary[]
+}
+
+const { posts } = Astro.props
+const copy = themeCopy.cabin
+---
+
+<section class="cabin" aria-label={copy.label}>
+  <svg class="house-art" viewBox="0 0 288 174" fill="none" aria-hidden="true">
+    <defs>
+      <linearGradient id="cabin-sky" x1="144" x2="144" y2="174" gradientUnits="userSpaceOnUse">
+        <stop class="sky-top" />
+        <stop class="sky-horizon" offset="1" />
+      </linearGradient>
+    </defs>
+    <rect width="288" height="174" fill="url(#cabin-sky)" />
+    <circle class="scene-sun" cx="216" cy="51" r="23" fill="#f0bb64" />
+    <path class="scene-moon" d="M222 28a21 21 0 1 0 12 33 22 22 0 0 1-12-33Z" fill="#ffdf9c" />
+    <path
+      class="scene-stars"
+      d="M44 33v8m-4-4h8m35 20v6m-3-3h6m165 19v8m-4-4h8m-98-49v6m-3-3h6m99 8v6m-3-3h6"
+      stroke="#fde6ba"
+      stroke-linecap="round"
+    />
+    <path class="far-hills" d="M0 119q55-53 101-13 20 20 50 17 52-27 85-18t52 25v44H0Z" />
+    <path class="near-hill" d="M0 151q54-30 125-12 34 9 72 1t91 3v31H0Z" />
+    <path class="scene-trail" d="M141 144c-6 12 28 13 20 20-3 3-15 7-27 10" stroke-width="6" />
+    <g class="scene-pines">
+      <path d="m52 80-12 19h7l-12 14h10l-12 14h17v17h4v-17h17l-12-14h10L57 99h7Zm22 22-8 13h5l-9 12h10v13h3v-13h10l-8-12h5Zm165-12-11 16h6l-10 14h7l-12 15h17v11h4v-11h16l-11-15h7l-10-14h7Z" />
+    </g>
+    <g stroke="#975d47" stroke-width="1.4" stroke-linejoin="round">
+      <path d="M161 82V67h8v24" fill="#a36e50" />
+      <path d="M108 105l35-29 32 28v41h-67Z" fill="#dba873" />
+      <path d="M99 107l43-39 44 39-7 3-37-32-37 32Z" fill="#a95e45" />
+      <path d="M137 145v-26h14v26" fill="#875942" />
+      <path d="M112 113h62m-62 24h25m14 0h23" fill="none" opacity=".35" />
+      <rect class="scene-window" x="117" y="117" width="12" height="13" rx="2" />
+      <rect class="scene-window" x="158" y="117" width="12" height="13" rx="2" />
+      <path d="M123 117v13m41-13v13" opacity=".66" />
+    </g>
+    <path d="M22 151h9m33 7h9m149-5h11m-46 8h7" class="scene-marks" stroke-linecap="round" />
+  </svg>
+  <div class="cabin-controls">
+    <button class="cabin-switch" type="button" aria-pressed="false">
+      <Icon name="sun" />
+      <Icon name="moon" />
+      <span>{copy.toggleTheme}</span>
+    </button>
+    {posts.length > 0 && (
+      <button class="cabin-draw" type="button" aria-controls="cabin-pick">
+        {copy.randomPost}
+        <Icon name="arrow" />
+      </button>
+    )}
+  </div>
+  {posts.length > 0 && (
+    <>
+      <ul class="cabin-pick" id="cabin-pick" aria-live="polite" />
+      <template id="cabin-posts">
+        {posts.map(({ href, title, date }) => (
+          <li>
+            <a {href}>{title}</a> <time datetime={date}>{date.slice(0, 4)}</time>
+          </li>
+        ))}
+      </template>
+    </>
+  )}
+</section>
+
+<script>
+  const button = document.querySelector<HTMLButtonElement>('.cabin-draw')
+  const result = document.getElementById('cabin-pick')
+  const posts = document.querySelector<HTMLTemplateElement>('#cabin-posts')?.content.children
+
+  if (button && result && posts) {
+    let previous = -1
+    button.addEventListener('click', () => {
+      const count = posts.length
+      if (count === 1 && previous === 0) return
+      const excludePrevious = previous >= 0
+      const next = Math.floor(Math.random() * (count - Number(excludePrevious)))
+      previous = excludePrevious && next >= previous ? next + 1 : next
+      result.replaceChildren(posts[previous]!.cloneNode(true))
+    })
+  }
+</script>

@@ -3,16 +3,15 @@ function setupTheme() {
   const storageKey = root.dataset.themeStorageKey!
   const systemDark = matchMedia('(prefers-color-scheme: dark)')
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)')
-  const button = document.querySelector<HTMLButtonElement>('.theme-button')
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.theme-button, .cabin-switch')
   const themeColors = document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]')
   let switching = false
   const isDark = () => (root.dataset.theme ? root.dataset.theme === 'dark' : systemDark.matches)
 
   function sync() {
     const dark = isDark()
-    button?.setAttribute('aria-pressed', String(dark))
+    for (const button of buttons) button.setAttribute('aria-pressed', String(dark))
     for (const meta of themeColors) meta.content = dark ? '#171b18' : '#fcfcfb'
-    window.dispatchEvent(new Event('site:theme'))
   }
 
   function change(dark: boolean) {

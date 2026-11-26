@@ -1,15 +1,9 @@
 import { fileURLToPath } from 'node:url'
 import { join } from 'node:path'
-import react from '@astrojs/react'
 import tailwindcss from '@tailwindcss/vite'
 
 const name = '@huanwu/blog-theme-cabin'
-const frameworkEntries = [
-  '@astrojs/react/server.js',
-  '@astrojs/react/client.js',
-  'astro/runtime/client/dev-toolbar/entrypoint.js',
-]
-const reactPackages = /^react(?:-dom)?(?:\/|$)/
+const toolbarEntry = 'astro/runtime/client/dev-toolbar/entrypoint.js'
 
 /** @param {import('./types').CabinOptions} options @returns {import('astro').AstroIntegration} */
 export default function cabin(options) {
@@ -28,13 +22,11 @@ export default function cabin(options) {
           srcDir: new URL('./', import.meta.url),
           output: 'static',
           build: { format: 'preserve' },
-          integrations: [react()],
           vite: {
             resolve: {
-              alias: frameworkEntries.map((id) => ({
-                find: new RegExp(`^${RegExp.escape(id)}$`),
-                replacement: fileURLToPath(import.meta.resolve(id)),
-              })),
+              alias: {
+                [toolbarEntry]: fileURLToPath(import.meta.resolve(toolbarEntry)),
+              },
             },
             plugins: [
               tailwindcss(),
@@ -49,16 +41,10 @@ export default function cabin(options) {
                 },
                 configEnvironment: {
                   order: 'post',
-                  handler(_name, { resolve, optimizeDeps }) {
-                    // Resolve React from the importing package, not the consuming site's root.
-                    if (resolve?.dedupe) {
-                      resolve.dedupe = resolve.dedupe.filter((id) => !reactPackages.test(id))
-                    }
+                  handler(_name, { optimizeDeps }) {
                     if (optimizeDeps?.include) {
                       optimizeDeps.include = optimizeDeps.include.map((id) =>
-                        id.startsWith('astro > ') || reactPackages.test(id)
-                          ? `${name} > ${id}`
-                          : id,
+                        id.startsWith('astro > ') ? `${name} > ${id}` : id,
                       )
                     }
                   },

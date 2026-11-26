@@ -11,7 +11,7 @@ export interface ThemeSite {
   language: string
   socialLocale?: string
   github?: string
-  footerLink?: { label: string; href: string }
+  footer?: { name?: string; language?: string; copyright?: string }
   navigation?: readonly NavItem[]
   search?: boolean
   themeStorageKey?: string
